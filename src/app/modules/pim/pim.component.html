@@ -1,32 +1,38 @@
-<p-toolbar 
-    styleClass="bg-gray-900 shadow-2" 
-    [style]="{ 'border-radius': '3rem', 'background-image': 'linear-gradient(to right, var(--bluegray-500), var(--bluegray-800))' }">
-        <ng-template pTemplate="start">
-            <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" />
-        </ng-template>
-        <ng-template pTemplate="center">
-            <div class="flex flex-wrap align-items-center gap-3">
-                <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
-                    <i class="pi pi-home text-2xl"></i>
-                </button>
-                <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
-                    <i class="pi pi-user text-2xl"></i>
-                </button>
-                <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
-                    <i class="pi pi-search text-2xl"></i>
-                </button>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="end">
-            <div class="flex align-items-center gap-2">
-                <!-- <p-avatar 
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
-                    shape="circle" /> -->
-                <span class="font-bold text-bluegray-50">
-                    Amy Elsner
-                </span>
-            </div>
-        </ng-template>
-              <!-- Route -->
-      <router-outlet></router-outlet>
-</p-toolbar>
+<div class="grid mx-auto px-4 py-4 sm:px-8 lg:container">
+    <div class="col-12 xl:col-6">
+        <div class="p-card p-card-custom">
+            <p-table [value]="employees" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Id</th>
+                        <th pSortableColumn="firstName">First Name <p-sortIcon field="firstName"></p-sortIcon></th>
+                        <th pSortableColumn="lastName">Last Name <p-sortIcon field="lastName"></p-sortIcon></th>
+                        <th pSortableColumn="jobTitle">Job Title <p-sortIcon field="jobTitle"></p-sortIcon></th>
+                        <th pSortableColumn="status">Emp Status <p-sortIcon field="status"></p-sortIcon></th>
+                        <th pSortableColumn="subUnitName">Sub Unit <p-sortIcon field="subUnitName"></p-sortIcon></th>
+                        <th pSortableColumn="supervisorFullName">Supervisor <p-sortIcon
+                                field="supervisorFullName"></p-sortIcon></th>
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-employee let-i="rowIndex">
+                    <tr>
+                        <td style="width: 5%; min-width: 4rem;">{{ i + 1 }}</td>
+                        <td style="width: 15%; min-width: 4rem;">{{employee.firstName}}</td>
+                        <td style="width: 15%; min-width: 4rem;">{{employee.lastName}}</td>
+                        <td style="width: 15%; min-width: 4rem;">{{employee.jobTitle}}</td>
+                        <td style="width: 15%; min-width: 4rem;">{{employee.status}}</td>
+                        <td style="width: 15%; min-width: 4rem;">{{employee.subUnitName}}</td>
+                        <td style="width: 15%; min-width: 4rem;">{{employee.supperVisor.fullName || ''}}</td>
+                        <td style="width: 20%;">
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                class="p-button p-component p-button-text p-button-icon-only p-button-danger"></button>
+                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                class="p-button p-component p-button-text p-button-icon-only"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
