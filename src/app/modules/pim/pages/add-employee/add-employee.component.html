@@ -1,47 +1,125 @@
 <div class="grid mx-auto px-4 py-4 sm:px-8 lg:container">
-  <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
-  <div class="relative overflow-x-auto">
-      <div class="p-card p-card-custom">
-          <p-table class="rounded-lg" #dt 
-          [value]="employees" 
-          [tableStyle]="{'min-width': '50rem'}"
-          [rowHover]="true"
-          [filterDelay]="0"
-          [paginator]="true" 
-          [rows]="row" 
-          [showCurrentPageReport]="true" 
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee" 
-          [rowsPerPageOptions]="[5,10,15,20,25,50]" 
-          responsiveLayout="scroll">
-              <ng-template pTemplate="header">
-                  <tr>
-                      <th pSortableColumn="firstName">First Name <p-sortIcon field="firstName"></p-sortIcon></th>
-                      <th pSortableColumn="lastName">Last Name <p-sortIcon field="lastName"></p-sortIcon></th>
-                      <th pSortableColumn="jobTitle">Job Title <p-sortIcon field="jobTitle"></p-sortIcon></th>
-                      <th pSortableColumn="status">Emp Status <p-sortIcon field="status"></p-sortIcon></th>
-                      <th pSortableColumn="subUnitName">Sub Unit <p-sortIcon field="subUnitName"></p-sortIcon></th>
-                      <th pSortableColumn="supervisorFullName">Supervisor <p-sortIcon field="supervisorFullName"></p-sortIcon></th>
-                      <th>Action</th>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-employee let-i="rowIndex">
-                  <tr>
-                      <td style="width: 15%; min-width: 4rem;">{{employee.firstName}}</td>
-                      <td style="width: 15%; min-width: 4rem;">{{employee.lastName}}</td>
-                      <td style="width: 15%; min-width: 4rem;">{{employee.jobTitle}}</td>
-                      <td style="width: 15%; min-width: 4rem;">{{employee.status}}</td>
-                      <td style="width: 15%; min-width: 4rem;">{{employee.subUnitName}}</td>
-                      <td style="width: 15%; min-width: 4rem;">{{employee.supperVisor?.fullName || ''}}</td>
-                      <td style="width: 20%;">
-                          <button pButton pRipple type="button" icon="pi pi-trash"
-                              class="p-button p-component p-button-text p-button-icon-only p-button-danger"
-                              (click)="deleteEmployee(employee.id)"></button>
-                          <button pButton pRipple type="button" icon="pi pi-pencil"
-                              class="p-button p-component p-button-text p-button-icon-only"></button>
-                      </td>
-                  </tr>
-              </ng-template>
-          </p-table>
-  </div>
-</div>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
+        <div class="md:col-span-2 xl:col-span-3">
+            <div class="flex-row rounded-lg bg-background px-8 py-4 sm:flex-row">
+                <form class="max-w-screen-xl mx-auto">
+                    <h2 class="text-lg">Add Employee</h2>
+
+                    <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+                    <div class="grid md:grid-cols-3 md:gap-4">
+                        <div class="relative z-0 w-full mb-5 group md:col-span-1">
+                            <label for="uploadFile1"
+                                class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-11 mb-2 fill-gray-500"
+                                    viewBox="0 0 32 32">
+                                    <path
+                                        d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+                                        data-original="#000000" />
+                                    <path
+                                        d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+                                        data-original="#000000" />
+                                </svg>
+                                Upload file
+
+                                <input type="file" id='uploadFile1' class="hidden" />
+                                <p class="text-xs font-medium text-gray-400 mt-2">PNG, JPG SVG, WEBP, and GIF are
+                                    Allowed.
+                                </p>
+                            </label>
+                        </div>
+                        <div class="grid md:grid-rows-2 md:gap-1 md:col-span-2">
+                            <div class="grid md:grid-cols-2 md:gap-4">
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <label for="employee-full-name"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employee
+                                        Full Name*</label>
+                                    <input type="text" id="employee-full-name" placeholder="First Name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <input type="text" id="employee-full-name" placeholder="Last Name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-7">
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 md:gap-4">
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <label for="base-input"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employee
+                                        Id</label>
+                                    <input type="text" id="base-input"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-1 md:gap-4">
+                                <span class="text-bg-blue-700 white">Create Login Details</span>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 md:gap-4">
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <label for="user-name"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User
+                                        Name*</label>
+                                    <input type="text" id="user-name" value=""
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <span class="text-sm text-black">Status</span>
+                                    <div class="flex items-center mt-3 space-x-4 justify-between px-4">
+                                        <div class="flex items-center">
+                                            <input id="enabled-radio" type="radio" value="" name="status-radio"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="enabled-radio"
+                                                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 ml-3">Enabled</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input checked id="disabled-radio" type="radio" value="" name="status-radio"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-3">
+                                            <label for="disabled-radio"
+                                                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Disabled</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 md:gap-4 bg-gray-100 p-2 rounded-lg">
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <label for="password"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password*</label>
+                                    <input type="text" id="password" value=""
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <span class="text-xs">
+                                        For a strong password, please use a hard to guess combination of text with upper
+                                        and lower case characters, symbols and numbers
+                                    </span>
+                                </div>
+
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <label for="comfirm-password"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
+                                        Password*</label>
+                                    <input type="text" id="comfirm-password" value=""
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+                    <div class="grid md:grid-cols-8 md:gap-2 flex justify-end">
+                        <div class="col-span-6"></div>
+                        <button type="submit"
+                            class="text-xs text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+                        <button type="submit"
+                            class="text-xs text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
