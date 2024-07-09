@@ -42,7 +42,7 @@ export class ListEmployeeComponent implements OnInit {
   constructor(private service: EmployeeApiServiceService, private http: HttpClient) { }
 
   ngOnInit(): void {
-    if (this.employees.length === 0) {
+    if (this.employees.length === 0 || this.subUnits.length === 0) {
       this.refreshData();
     }
   }
@@ -57,6 +57,12 @@ export class ListEmployeeComponent implements OnInit {
 
   totalRecords: number = 0;
 
+  searchEmployee = '';
+  status = '';
+  jobTitle = '';
+  supervisorName = '';
+  subName = '';
+
   items!: MenuItem[];
 
   chartData: any;
@@ -64,24 +70,11 @@ export class ListEmployeeComponent implements OnInit {
   chartOptions: any;
 
   refreshData() {
-    this.service.getEmployees().subscribe(employees => {
-      this.service.getSubUnits().subscribe(subUnits => {
-        this.subUnits = subUnits;
-        this.employees = employees.map(employee => {
-          const subUnit = this.subUnits.find(s => s.id === employee.subUnitId);
-          if (subUnit) {
-            employee.subUnitName = subUnit.subName;
-          }
-          return {
-            ...employee,
-            supperVisor: {
-              id: employee.supperVisor.id,
-              fullName: employee.supperVisor.fullName
-            }
-          };
-        });
-        console.log(this.employees);
-      });
+    this.service.getEmployees().subscribe(data => {
+      this.employees = data;
+    });
+    this.service.getSubUnits().subscribe(data => {
+      this.subUnits = data;
     });
   }
 
@@ -94,9 +87,24 @@ export class ListEmployeeComponent implements OnInit {
     }
   }
 
+  filteredEmployees(searchEmployee: string, status?: string, jobTitle?: string, supervisorName?: string, subName?: string) {
+    if (!searchEmployee && !status && !jobTitle && !supervisorName && !subName) {
+      this.refreshData();
+    } else {
+      this.service.searchEmployees(searchEmployee, status, jobTitle, supervisorName, subName).subscribe(data => {
+        this.employees = data;
+      });
+    }
+  }
+
   onPageChange(event: any) {
     this.first = event.first;
     this.row = event.rows;
+  }
+
+  getSubName(subUnitId: string | null): string {
+    const subUnit = this.subUnits.find(unit => unit.id === subUnitId);
+    return subUnit ? subUnit.subName : 'N/A';
   }
 }
 
