@@ -1,0 +1,7 @@
+<div class="custom-paginator">
+  <button pButton type="button" (click)="firstPage()" icon="pi pi-angle-double-left" [disabled]="isFirstPage"></button>
+  <button pButton type="button" (click)="prevPage()" icon="pi pi-angle-left" [disabled]="isFirstPage"></button>
+  <span class="paginator-text">{{ currentPage }} / {{ totalPages }}</span>
+  <button pButton type="button" (click)="nextPage()" icon="pi pi-angle-right" [disabled]="isLastPage"></button>
+  <button pButton type="button" (click)="lastPage()" icon="pi pi-angle-double-right" [disabled]="isLastPage"></button>
+</div>
