@@ -101,7 +101,9 @@
                     
                     <div class="p-card p-card-custom">
                         <p-table class="rounded-lg" #dt [value]="employees" [tableStyle]="{'min-width': '50rem'}"
-                            [rowHover]="true" [filterDelay]="0" [paginator]="true" [rows]="row"
+                            [rowHover]="true" [filterDelay]="0" [paginator]="true" [rows]="pageSize"
+                            [totalRecords]="totalRecords"
+                            (onPage)="onPageChange($event)"
                             [showCurrentPageReport]="true"
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
                             [rowsPerPageOptions]="[5,10,15,20,25,50]" responsiveLayout="scroll">

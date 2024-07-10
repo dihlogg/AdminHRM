@@ -63,11 +63,12 @@ export class ListEmployeeComponent implements OnInit {
   supervisorName = '';
   subName = '';
 
-  items!: MenuItem[];
+  totalCount: number = 0;
 
-  chartData: any;
+  pageIndex: number = 1;
+  
+  pageSize: number = 5;
 
-  chartOptions: any;
 
   refreshData() {
     this.service.getEmployees().subscribe(data => {
@@ -76,6 +77,22 @@ export class ListEmployeeComponent implements OnInit {
     this.service.getSubUnits().subscribe(data => {
       this.subUnits = data;
     });
+    this.pageIndex = 1;
+    this.loadEmployees();
+  }
+
+  loadEmployees(): void {
+    this.service.getPagingRecord(this.pageIndex, this.pageSize).subscribe(
+      data => {
+        this.employees = data.items;
+        this.totalRecords = data.totalCount;
+        this.pageIndex = data.pageIndex;
+        this.pageSize = data.pageSize;
+      },
+      error => {
+        console.error('Failed to load employees', error);
+      }
+    );
   }
 
   deleteEmployee(idEmployee: any) {
@@ -83,6 +100,7 @@ export class ListEmployeeComponent implements OnInit {
     if (confirmDelete) {
       this.service.deleteEmployee(idEmployee).subscribe(() => {
         this.refreshData();
+        this.loadEmployees();
       });
     }
   }
@@ -97,9 +115,10 @@ export class ListEmployeeComponent implements OnInit {
     }
   }
 
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.row = event.rows;
+  onPageChange(event: any): void {
+    this.pageIndex = event.page + 1;  // PrimeNG Paginator pages are zero-based
+    this.pageSize = event.rows;
+    this.loadEmployees();
   }
 
   getSubName(subUnitId: string | null): string {
