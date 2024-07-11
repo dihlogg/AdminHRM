@@ -65,9 +65,13 @@ export class ListEmployeeComponent implements OnInit {
 
   totalCount: number = 0;
 
-  pageIndex: number = 1;
-  
+  pageIndex: number = 0;
+
   pageSize: number = 5;
+
+  sortField: string = 'firstName';
+
+  sortOrder: string = 'ASC';
 
 
   refreshData() {
@@ -77,17 +81,25 @@ export class ListEmployeeComponent implements OnInit {
     this.service.getSubUnits().subscribe(data => {
       this.subUnits = data;
     });
-    this.pageIndex = 1;
-    this.loadEmployees();
+    this.pageIndex = 0;
   }
 
   loadEmployees(): void {
-    this.service.getPagingRecord(this.pageIndex, this.pageSize).subscribe(
+    if (!this.sortField) {
+      this.sortField = 'firstName';
+    }
+    if (!this.sortOrder) {
+      this.sortOrder = 'ASC';
+    }
+
+    this.service.getPagingRecord(this.pageIndex, this.pageSize, this.sortField, this.sortOrder).subscribe(
       data => {
         this.employees = data.items;
         this.totalRecords = data.totalCount;
-        this.pageIndex = data.pageIndex;
+        this.pageIndex = data.pageIndex - 1;  // PrimeNG Paginator pages are zero-based
         this.pageSize = data.pageSize;
+        this.sortField = data.sortField;
+        this.sortOrder = data.sortOrder;
       },
       error => {
         console.error('Failed to load employees', error);
@@ -116,8 +128,24 @@ export class ListEmployeeComponent implements OnInit {
   }
 
   onPageChange(event: any): void {
-    this.pageIndex = event.page + 1;  // PrimeNG Paginator pages are zero-based
+    this.pageIndex = event.page;
     this.pageSize = event.rows;
+    this.loadEmployees();
+  }
+
+  onSortChange(event: any) {
+    this.sortField = event.sortField;
+    this.sortOrder = event.sortOrder;
+    this.loadEmployees();
+  }
+
+  onSortIconClick(field: string): void {
+    if (this.sortField === field) {
+      this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+      this.sortField = field;
+      this.sortOrder = 'ASC';
+    }
     this.loadEmployees();
   }
 

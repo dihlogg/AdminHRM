@@ -3,4 +3,6 @@ export interface PagedResult<T> {
     totalCount: number;
     pageIndex: number;
     pageSize: number;
+    sortField: string;
+    sortOrder: string;
   }
