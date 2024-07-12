@@ -63,11 +63,16 @@ export class ListEmployeeComponent implements OnInit {
   supervisorName = '';
   subName = '';
 
-  items!: MenuItem[];
+  totalCount: number = 0;
 
-  chartData: any;
+  pageIndex: number = 0;
 
-  chartOptions: any;
+  pageSize: number = 5;
+
+  sortField: string = 'firstName';
+
+  sortOrder: string = 'ASC';
+
 
   refreshData() {
     this.service.getEmployees().subscribe(data => {
@@ -76,6 +81,30 @@ export class ListEmployeeComponent implements OnInit {
     this.service.getSubUnits().subscribe(data => {
       this.subUnits = data;
     });
+    this.pageIndex = 0;
+  }
+
+  loadEmployees(): void {
+    if (!this.sortField) {
+      this.sortField = 'firstName';
+    }
+    if (!this.sortOrder) {
+      this.sortOrder = 'ASC';
+    }
+
+    this.service.getPagingRecord(this.pageIndex, this.pageSize, this.sortField, this.sortOrder).subscribe(
+      data => {
+        this.employees = data.items;
+        this.totalRecords = data.totalCount;
+        this.pageIndex = data.pageIndex - 1;  // PrimeNG Paginator pages are zero-based
+        this.pageSize = data.pageSize;
+        this.sortField = data.sortField;
+        this.sortOrder = data.sortOrder;
+      },
+      error => {
+        console.error('Failed to load employees', error);
+      }
+    );
   }
 
   deleteEmployee(idEmployee: any) {
@@ -83,6 +112,7 @@ export class ListEmployeeComponent implements OnInit {
     if (confirmDelete) {
       this.service.deleteEmployee(idEmployee).subscribe(() => {
         this.refreshData();
+        this.loadEmployees();
       });
     }
   }
@@ -97,9 +127,26 @@ export class ListEmployeeComponent implements OnInit {
     }
   }
 
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.row = event.rows;
+  onPageChange(event: any): void {
+    this.pageIndex = event.page;
+    this.pageSize = event.rows;
+    this.loadEmployees();
+  }
+
+  onSortChange(event: any) {
+    this.sortField = event.sortField;
+    this.sortOrder = event.sortOrder;
+    this.loadEmployees();
+  }
+
+  onSortIconClick(field: string): void {
+    if (this.sortField === field) {
+      this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+      this.sortField = field;
+      this.sortOrder = 'ASC';
+    }
+    this.loadEmployees();
   }
 
   getSubName(subUnitId: string | null): string {

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PagedResult } from '../../models/paged-result.model';
+import { Employee } from '../../models/employee.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +55,16 @@ export class EmployeeApiServiceService {
     }
   
     return this.http.get<any[]>(this.employeeApiUrl + 'SearchEmployees', { params });
+  }
+
+  getPagingRecord(page: number, pageSize: number, sortField: string, sortOrder: string): Observable<PagedResult<Employee>> {
+    let params = new HttpParams();
+    params = params.set('page', page.toString())
+    params = params.set('pageSize', pageSize.toString())
+    .set('sortField', sortField)
+    .set('sortOrder', sortOrder);
+
+    return this.http.get<PagedResult<Employee>>(this.employeeApiUrl + 'GetPagingRecord', { params });
   }
 
   // SubUnit

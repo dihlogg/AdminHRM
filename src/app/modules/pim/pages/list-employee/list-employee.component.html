@@ -2,7 +2,8 @@
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
         <div class="md:col-span-2 xl:col-span-3">
             <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
-                <form class="max-w-screen-xl mx-auto" (ngSubmit)="filteredEmployees(searchEmployee, status, jobTitle, supervisorName, subName)">
+                <form class="max-w-screen-xl mx-auto"
+                    (ngSubmit)="filteredEmployees(searchEmployee, status, jobTitle, supervisorName, subName)">
 
                     <h2 class="text-lg">Employee Information</h2>
 
@@ -13,7 +14,9 @@
                             <label for="employee-full-name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-xs">Employee
                                 Name</label>
-                            <input type="text" id="employee-full-name" placeholder="Type for hints..." name="searchEmployee" [(ngModel)]="searchEmployee" (keyup.enter)="filteredEmployees(searchEmployee)"
+                            <input type="text" id="employee-full-name" placeholder="Type for hints..."
+                                name="searchEmployee" [(ngModel)]="searchEmployee"
+                                (keyup.enter)="filteredEmployees(searchEmployee)"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
 
@@ -29,7 +32,8 @@
                             <label for="employee-status"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-xs">Employment
                                 Status</label>
-                            <select id="employee-status" name="searchEmployeeStatus" [(ngModel)]="status" (keyup.enter)="filteredEmployees(status)"
+                            <select id="employee-status" name="searchEmployeeStatus" [(ngModel)]="status"
+                                (keyup.enter)="filteredEmployees(status)"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option>--Select--</option>
                                 <option>Full Time</option>
@@ -55,21 +59,27 @@
                             <label for="supervisor-full-name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-xs">Supervisor
                                 Name</label>
-                            <input type="text" id="supervisor-full-name" placeholder="Type for hints..." name="searchEmployeeVisor" [(ngModel)]="supervisorName" (keyup.enter)="filteredEmployees(supervisorName)"
+                            <input type="text" id="supervisor-full-name" placeholder="Type for hints..."
+                                name="searchEmployeeVisor" [(ngModel)]="supervisorName"
+                                (keyup.enter)="filteredEmployees(supervisorName)"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
 
                         <div class="relative z-0 w-full mb-5 group">
                             <label for="job-title"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-xs">Job Title</label>
-                            <input type="text" id="job-title" placeholder="Type for hints..." name="searchEmployeeJob" [(ngModel)]="jobTitle" (keyup.enter)="filteredEmployees(jobTitle)"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-xs">Job
+                                Title</label>
+                            <input type="text" id="job-title" placeholder="Type for hints..." name="searchEmployeeJob"
+                                [(ngModel)]="jobTitle" (keyup.enter)="filteredEmployees(jobTitle)"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
 
                         <div class="relative z-0 w-full mb-5 group">
                             <label for="employee-include"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-xs">Sub Unit</label>
-                            <select id="employee-include" name="searchEmployeeUnit" [(ngModel)]="subName" (keyup.enter)="filteredEmployees(subName)"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-xs">Sub
+                                Unit</label>
+                            <select id="employee-include" name="searchEmployeeUnit" [(ngModel)]="subName"
+                                (keyup.enter)="filteredEmployees(subName)"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option>--Select--</option>
                                 <option>Developer</option>
@@ -83,7 +93,8 @@
                         <div class="col-span-6"></div>
                         <button type="submit"
                             class="text-xs text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
-                        <button type="submit" (click)="filteredEmployees(searchEmployee, status, jobTitle, supervisorName, subName)"
+                        <button type="submit"
+                            (click)="filteredEmployees(searchEmployee, status, jobTitle, supervisorName, subName)"
                             class="text-xs text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                     </div>
                 </form>
@@ -95,31 +106,62 @@
             <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
                 <div class="relative overflow-x-auto">
                     <button type="submit"
-                    class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-large rounded-lg text-md w-30 sm:w-30 px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">    + Add    </button>
-                   
+                        class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-large rounded-lg text-md w-30 sm:w-30 px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        + Add </button>
+
                     <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
-                    
+
                     <div class="p-card p-card-custom">
                         <p-table class="rounded-lg" #dt [value]="employees" [tableStyle]="{'min-width': '50rem'}"
-                            [rowHover]="true" [filterDelay]="0" [paginator]="true" [rows]="row"
-                            [showCurrentPageReport]="true"
+                            [rowHover]="true" [filterDelay]="0" [paginator]="true" [rows]="pageSize"
+                            [totalRecords]="totalRecords" (onPage)="onPageChange($event)" [sortField]="sortField"
+                            [sortOrder]="sortOrder" [showCurrentPageReport]="true"
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
-                            [rowsPerPageOptions]="[5,10,15,20,25,50]" responsiveLayout="scroll">
+                            [rowsPerPageOptions]="[5,10,20,25,50]" responsiveLayout="scroll">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th pSortableColumn="firstName">First Name <p-sortIcon
-                                            field="firstName"></p-sortIcon></th>
-                                    <th pSortableColumn="lastName">Last Name <p-sortIcon field="lastName"></p-sortIcon>
+                                    <th>
+                                        First Name
+                                        <i class="pi"
+                                            [ngClass]="{'pi-sort-alpha-up': sortField === 'firstName' && sortOrder === 'ASC', 
+                                            'pi-sort-alpha-down': sortField === 'firstName' && sortOrder === 'DESC', 'pi-sort-alt': sortField !== 'firstName'}"
+                                            (click)="onSortIconClick('firstName')"></i>
                                     </th>
-                                    <th pSortableColumn="jobTitle">Job Title <p-sortIcon field="jobTitle"></p-sortIcon>
+                                    <th>
+                                        Last Name
+                                        <i class="pi"
+                                        [ngClass]="{'pi-sort-alpha-up': sortField === 'lastName' && sortOrder === 'ASC', 
+                                        'pi-sort-alpha-down': sortField === 'lastName' && sortOrder === 'DESC', 'pi-sort-alt': sortField !== 'lastName'}"
+                                        (click)="onSortIconClick('lastName')"></i>
                                     </th>
-                                    <th pSortableColumn="status">Emp Status <p-sortIcon field="status"></p-sortIcon>
+                                    <th>
+                                        Job Title
+                                        <i class="pi"
+                                        [ngClass]="{'pi-sort-alpha-up': sortField === 'jobTitle' && sortOrder === 'ASC', 
+                                        'pi-sort-alpha-down': sortField === 'jobTitle' && sortOrder === 'DESC', 'pi-sort-alt': sortField !== 'jobTitle'}"
+                                        (click)="onSortIconClick('jobTitle')"></i>
                                     </th>
-                                    <th pSortableColumn="subUnitName">Sub Unit <p-sortIcon
-                                            field="subUnitName"></p-sortIcon>
+                                    <th>
+                                        Emp Status
+                                        <i class="pi"
+                                        [ngClass]="{'pi-sort-alpha-up': sortField === 'status' && sortOrder === 'ASC', 
+                                        'pi-sort-alpha-down': sortField === 'status' && sortOrder === 'DESC', 'pi-sort-alt': sortField !== 'status'}"
+                                        (click)="onSortIconClick('status')"></i>
                                     </th>
-                                    <th pSortableColumn="supervisorFullName">Supervisor <p-sortIcon
-                                            field="supervisorFullName"></p-sortIcon></th>
+                                    <th>
+                                        Sub Unit
+                                        <i class="pi"
+                                        [ngClass]="{'pi-sort-alpha-up': sortField === 'subUnitName' && sortOrder === 'ASC', 
+                                        'pi-sort-alpha-down': sortField === 'subUnitName' && sortOrder === 'DESC', 'pi-sort-alt': sortField !== 'subUnitName'}"
+                                        (click)="onSortIconClick('subUnitName')"></i>
+                                    </th>
+                                    <th>
+                                        Supervisor
+                                        <i class="pi"
+                                        [ngClass]="{'pi-sort-alpha-up': sortField === 'supervisorFullName' && sortOrder === 'ASC', 
+                                        'pi-sort-alpha-down': sortField === 'supervisorFullName' && sortOrder === 'DESC', 'pi-sort-alt': sortField !== 'supervisorFullName'}"
+                                        (click)="onSortIconClick('supervisorFullName')"></i>
+                                    </th>
                                     <th>Action</th>
                                 </tr>
                             </ng-template>
