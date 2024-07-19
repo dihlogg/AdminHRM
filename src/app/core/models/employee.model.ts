@@ -7,16 +7,16 @@ export interface Employee {
     employeeId: string | null;
     subUnitId: string | null;
     subUnitName?: string;
-    supervisor?: superVisor;
-    employeeChildrens?: employeeChildrens[];
+    supervisor?: Supervisor;
+    employeeChildren?: EmployeeChildren[];
 }
 
-export interface superVisor {
+export interface Supervisor {
     id?: string | null;
     fullName: string;
 }
 
-export interface employeeChildrens {
+export interface EmployeeChildren {
     id?: string | null;
     fullName: string;
 }
