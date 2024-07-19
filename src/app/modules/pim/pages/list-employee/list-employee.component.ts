@@ -65,14 +65,13 @@ export class ListEmployeeComponent implements OnInit {
 
   totalCount: number = 0;
 
-  pageIndex: number = 0;
+  pageIndex: number = 0; 
 
   pageSize: number = 5;
 
-  sortField: string = 'firstName';
-
-  sortOrder: string = 'ASC';
-
+  // Updated for multiple sort fields
+  sortFields: string[] = ['firstName'];
+  sortOrders: string[] = ['ASC'];
 
   refreshData() {
     this.service.getEmployees().subscribe(data => {
@@ -81,31 +80,23 @@ export class ListEmployeeComponent implements OnInit {
     this.service.getSubUnits().subscribe(data => {
       this.subUnits = data;
     });
-    this.pageIndex = 0;
+    this.pageIndex = 1;
+    this.loadEmployees();
   }
 
   loadEmployees(): void {
-    if (!this.sortField) {
-      this.sortField = 'firstName';
-    }
-    if (!this.sortOrder) {
-      this.sortOrder = 'ASC';
-    }
-
-    this.service.getPagingRecord(this.pageIndex, this.pageSize, this.sortField, this.sortOrder).subscribe(
+    this.service.getPagingRecord(this.pageIndex, this.pageSize, this.sortFields, this.sortOrders).subscribe(
       data => {
         this.employees = data.items;
         this.totalRecords = data.totalCount;
-        this.pageIndex = data.pageIndex - 1;  // PrimeNG Paginator pages are zero-based
+        this.pageIndex = data.pageIndex;
         this.pageSize = data.pageSize;
-        this.sortField = data.sortField;
-        this.sortOrder = data.sortOrder;
       },
       error => {
-        console.error('Failed to load employees', error);
+        console.error('Failed to load employees');
       }
     );
-  }
+}
 
   deleteEmployee(idEmployee: any) {
     const confirmDelete = confirm('Do you want to delete this employee?');
@@ -128,30 +119,43 @@ export class ListEmployeeComponent implements OnInit {
   }
 
   onPageChange(event: any): void {
-    this.pageIndex = event.page;
+    this.pageIndex = event.page + 1;  // PrimeNG Paginator pages are zero-based
     this.pageSize = event.rows;
     this.loadEmployees();
   }
 
-  onSortChange(event: any) {
-    this.sortField = event.sortField;
-    this.sortOrder = event.sortOrder;
+  onSortChange(event: any): void {
+    const field = event.field;
+    const order = event.order === 1 ? 'ASC' : 'DESC';
+    
+    const index = this.sortFields.indexOf(field);
+    if (index > -1) {
+      this.sortOrders[index] = order;
+    } else {
+      this.sortFields.push(field);
+      this.sortOrders.push(order);
+    }
+    
     this.loadEmployees();
   }
 
   onSortIconClick(field: string): void {
-    if (this.sortField === field) {
-      this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    const index = this.sortFields.indexOf(field);
+    if (index === -1) {
+      this.sortFields.push(field);
+      this.sortOrders.push('ASC');
+    } else if (this.sortOrders[index] === 'ASC') {
+      this.sortOrders[index] = 'DESC';
     } else {
-      this.sortField = field;
-      this.sortOrder = 'ASC';
+      this.sortFields.splice(index, 1);
+      this.sortOrders.splice(index, 1);
     }
     this.loadEmployees();
   }
+
 
   getSubName(subUnitId: string | null): string {
     const subUnit = this.subUnits.find(unit => unit.id === subUnitId);
     return subUnit ? subUnit.subName : 'N/A';
   }
 }
-

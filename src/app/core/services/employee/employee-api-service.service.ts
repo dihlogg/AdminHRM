@@ -57,12 +57,12 @@ export class EmployeeApiServiceService {
     return this.http.get<any[]>(this.employeeApiUrl + 'SearchEmployees', { params });
   }
 
-  getPagingRecord(page: number, pageSize: number, sortField: string, sortOrder: string): Observable<PagedResult<Employee>> {
-    let params = new HttpParams();
-    params = params.set('page', page.toString())
-    params = params.set('pageSize', pageSize.toString())
-    .set('sortField', sortField)
-    .set('sortOrder', sortOrder);
+  getPagingRecord(page: number, pageSize: number, sortFields: string[], sortOrders: string[]): Observable<PagedResult<Employee>> {
+    let params = new HttpParams()
+        .set('page', page.toString())
+        .set('pageSize', pageSize.toString())
+        .set('sortFields', sortFields.join(','))
+        .set('sortOrders', sortOrders.join(','));
 
     return this.http.get<PagedResult<Employee>>(this.employeeApiUrl + 'GetPagingRecord', { params });
   }
