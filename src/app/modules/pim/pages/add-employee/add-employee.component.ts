@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
@@ -22,7 +22,7 @@ import { PaginatorModule } from 'primeng/paginator';
   styleUrls: ['./add-employee.component.css'],
   standalone: true,
   imports: [
-    CommonModule,
+  CommonModule,
     FormsModule,
     RouterOutlet,
     MenuModule,
@@ -45,6 +45,8 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
 
+  @Output() addEmployee = new EventEmitter<boolean>();
+
   employees: Employee[] = [];
 
   subUnits: SubUnit[] = [];
@@ -61,27 +63,31 @@ export class AddEmployeeComponent implements OnInit {
 
   chartOptions: any;
 
-  refreshData() {
-    this.service.getEmployees().subscribe(employees => {
-      this.service.getSubUnits().subscribe(subUnits => {
-        this.subUnits = subUnits;
-        this.employees = employees.map(employee => {
-          const subUnit = this.subUnits.find(s => s.id === employee.subUnitId);
-          if (subUnit) {
-            employee.subUnitName = subUnit.subName;
-          }
-          return {
-            ...employee,
-            supperVisor: {
-              id: employee.supperVisor.id,
-              fullName: employee.supperVisor.fullName
-            }
-          };
-        });
-        console.log(this.employees);
-      });
-    });
+  employeeInfo: Employee = {
+    firstName: '',
+    lastName: '',
+    jobTitle: '',
+    status: '',
+    employeeId: null,
+    subUnitId: null
+  };
+
+  onSubmit() {
+    console.log("add mode");
+    this.service.postEmployee(this.employeeInfo).subscribe(res => {
+      this.addEmployee.emit(res);
+      console.log("add mode succesfully");
+    })
   }
+
+    refreshData() {
+      this.service.getEmployees().subscribe(data => {
+        this.employees = data;
+      });
+      this.service.getSubUnits().subscribe(data => {
+        this.subUnits = data;
+      });
+    }
 
   deleteEmployee(idEmployee: any) {
     const confirmDelete = confirm('Do you want to delete this employee?');
@@ -97,4 +103,5 @@ export class AddEmployeeComponent implements OnInit {
     this.row = event.rows;
   }
 }
+
 

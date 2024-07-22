@@ -65,7 +65,7 @@ export class EmployeeApiServiceService {
         .set('sortOrders', sortOrders.join(','));
 
     return this.http.get<PagedResult<Employee>>(this.employeeApiUrl + 'GetPagingRecord', { params });
-  }
+}
 
   // SubUnit
   getSubUnits(): Observable<any[]> {
