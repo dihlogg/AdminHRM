@@ -96,7 +96,7 @@ export class ListEmployeeComponent implements OnInit {
         console.error('Failed to load employees');
       }
     );
-}
+  }
 
   deleteEmployee(idEmployee: any) {
     const confirmDelete = confirm('Do you want to delete this employee?');
@@ -139,20 +139,28 @@ export class ListEmployeeComponent implements OnInit {
     this.loadEmployees();
   }
 
-  onSortIconClick(field: string): void {
-    const index = this.sortFields.indexOf(field);
-    if (index === -1) {
-      this.sortFields.push(field);
-      this.sortOrders.push('ASC');
-    } else if (this.sortOrders[index] === 'ASC') {
-      this.sortOrders[index] = 'DESC';
+  onSortIconClick(event: MouseEvent, field: string): void {
+    const isShiftPressed = event.shiftKey;
+
+    if (!isShiftPressed) {
+      // Single sorting mode
+      this.sortFields = [field];
+      this.sortOrders = ['ASC'];
     } else {
-      this.sortFields.splice(index, 1);
-      this.sortOrders.splice(index, 1);
+      // Multiple sorting mode
+      const index = this.sortFields.indexOf(field);
+      if (index === -1) {
+        this.sortFields.push(field);
+        this.sortOrders.push('ASC');
+      } else if (this.sortOrders[index] === 'ASC') {
+        this.sortOrders[index] = 'DESC';
+      } else {
+        this.sortFields.splice(index, 1);
+        this.sortOrders.splice(index, 1);
+      }
     }
     this.loadEmployees();
   }
-
 
   getSubName(subUnitId: string | null): string {
     const subUnit = this.subUnits.find(unit => unit.id === subUnitId);

@@ -17,9 +17,9 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
-  selector: 'add-list-employee',
-  templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css'],
+  selector: 'add-info-employee',
+  templateUrl: './info-employee.component.html',
+  styleUrls: ['./info-employee.component.css'],
   standalone: true,
   imports: [
   CommonModule,
@@ -35,7 +35,7 @@ import { PaginatorModule } from 'primeng/paginator';
     RouterLink
   ],
 })
-export class AddEmployeeComponent implements OnInit {
+export class InfoEmployeeComponent implements OnInit {
 
   constructor(private service: EmployeeApiServiceService, private http: HttpClient) { }
 

@@ -22,6 +22,7 @@ export class Menu {
           children: [
             { label: 'List Employee', route: '/pim/list-employee' },
             { label: 'Add Employee', route: '/pim/add-employee' },
+            { label: 'Info Employee', route: '/pim/info-employee' },
           ],
         },
         {

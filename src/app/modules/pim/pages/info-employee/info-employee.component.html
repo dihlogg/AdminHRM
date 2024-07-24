@@ -1,0 +1,387 @@
+<div class="grid mx-auto px-4 py-4 sm:px-8 lg:container">
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
+    <div class="md:col-span-2 xl:col-span-3">
+      <div class="flex-row rounded-lg bg-background px-8 py-4 sm:flex-row">
+        <form (ngSubmit)="onSubmit()" class="max-w-screen-xl mx-auto">
+
+          <div class="flex items-center gap-4">
+            <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="">
+            <div class="font-medium dark:text-white">
+              <div>Jese Leos</div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">Joined in August 2014</div>
+            </div>
+          </div>
+
+          <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+          <div class="grid md:grid-cols-1 md:gap-4">
+            <span class="text-bg-blue-700 white mb-4 text-xl">Personal Details</span>
+          </div>
+
+          <div class="grid md:grid-cols-1 md:gap-6 bg-gray-100 p-2 rounded-lg">
+            <div class="grid md:grid-rows-2 md:gap-2 md:col-span-2">
+              <div class="grid md:grid-cols-4 md:gap-4">
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-firts-name"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">First Name</label>
+                  <input type="text" id="employee-firts-name" placeholder="First Name"
+                    [(ngModel)]="employeeInfo.firstName" name="firstName" required
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-last-name"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Last Name</label>
+                  <input type="text" id="employee-last-name" placeholder="Last Name" [(ngModel)]="employeeInfo.lastName"
+                    name="lastName" required
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-id" class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Employee
+                    Id</label>
+                  <input type="text" id="employee-id"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-driver-license"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Driver's License Number</label>
+                  <input type="text" id="employee-driver-license"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-4 md:gap-4">
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-nationality"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Nationality</label>
+                  <select id="employee-nationality"
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>--Select--</option>
+                    <option>Vietnamese</option>
+                    <option>Italian</option>
+                    <option>German</option>
+                  </select>
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-marital-status"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Marital Status</label>
+                  <select id="employee-marital-status"
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>--Select--</option>
+                    <option>Single</option>
+                    <option>Marirred</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="date-range-picker"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Date of Birth</label>
+
+                  <div class="relative max-w-sm">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                      </svg>
+                    </div>
+                    <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Select date">
+                  </div>
+
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <span class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Gender</span>
+                  <div class="flex items-center mt-3 space-x-4 justify-between px-2">
+                    <div class="flex items-center">
+                      <input id="enabled-radio" type="radio" value="" name="status-radio"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                      <label for="enabled-radio"
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 ml-3">Male</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input checked id="disabled-radio" type="radio" value="" name="status-radio"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-3">
+                      <label for="disabled-radio"
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+          <div class="grid md:grid-cols-1 md:gap-2">
+            <span class="text-bg-blue-700 white mb-4 text-xl">Contact Details</span>
+          </div>
+
+          <div class="grid md:grid-cols-1 md:gap-4 bg-gray-100 p-2 rounded-lg">
+            <div class="grid md:grid-cols-1 md:gap-2">
+              <span class="text-bg-blue-700 white text-lg">Address</span>
+              <div class="grid md:grid-rows-1 md:gap-2 md:col-span-3">
+                <div class="grid md:grid-cols-4 md:gap-4">
+                  <div class="relative z-0 w-full mb-5 group">
+                    <label for="employee-street"
+                      class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Street</label>
+                    <input type="text" id="employee-street"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  </div>
+
+                  <div class="relative z-0 w-full mb-5 group">
+                    <label for="employee-city"
+                      class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">City</label>
+                    <input type="text" id="employee-city"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  </div>
+
+                  <div class="relative z-0 w-full mb-5 group">
+                    <label for="employee-state"
+                      class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">State/Province</label>
+                    <input type="text" id="employee-state"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  </div>
+
+                  <div class="relative z-0 w-full mb-5 group">
+                    <label for="employee-country"
+                      class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Country</label>
+                    <select id="employee-country"
+                      class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option>--Select--</option>
+                      <option>Vietnamese</option>
+                      <option>Italian</option>
+                      <option>German</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-1 md:gap-2">
+              <span class="text-bg-blue-700 white text-lg">Telephone</span>
+              <div class="grid md:grid-cols-3 md:gap-4">
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-tele-home"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Home</label>
+                  <input type="text" id="employee-tele-home"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-tele-mobile"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Mobile</label>
+                  <input type="text" id="employee-tele-mobile"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-tele-work"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Work</label>
+                  <input type="text" id="employee-tele-work"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-1 md:gap-2">
+              <span class="text-bg-blue-700 white text-lg">Email</span>
+              <div class="grid md:grid-cols-2 md:gap-4">
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-email-work"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Work Email</label>
+                  <input type="text" id="employee-email-work"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-email-other"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Other Email</label>
+                  <input type="text" id="employee-email-other"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+          <div class="grid md:grid-cols-1 md:gap-4">
+            <span class="text-bg-blue-700 white mb-4 text-xl">Emergency Contact</span>
+          </div>
+
+          <div class="grid md:grid-cols-1 md:gap-6 bg-gray-100 p-2 rounded-lg">
+            <div class="grid md:grid-rows-2 md:gap-2 md:col-span-2">
+              <div class="grid md:grid-cols-2 md:gap-4">
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-emergency-name"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Name*</label>
+                  <input type="text" id="employee-emergency-name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-emergency-relationship"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Relationship*</label>
+                  <input type="text" id="employee-emergency-relationship"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 md:gap-4">
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-emergency-mobile"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Mobile</label>
+                  <input type="text" id="employee-emergency-mobile"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-emergency-address"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Address</label>
+                  <input type="text" id="employee-emergency-address"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+          <div class="grid md:grid-cols-1 md:gap-4">
+            <span class="text-bg-blue-700 white mb-4 text-xl">Job Details</span>
+          </div>
+
+          <div class="grid md:grid-cols-1 md:gap-6 bg-gray-100 p-2 rounded-lg">
+            <div class="grid md:grid-rows-2 md:gap-2 md:col-span-2">
+              <div class="grid md:grid-cols-3 md:gap-4">
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="date-range-picker"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Joined Date</label>
+                  <div class="relative max-w-sm">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                      </svg>
+                    </div>
+                    <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Select date">
+                  </div>
+
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-job-title"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Job Title</label>
+                  <select id="employee-job-title"
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>--Select--</option>
+                    <option>Dev</option>
+                    <option>Tester</option>
+                    <option>PM</option>
+                  </select>
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-job-unit"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Sub Unit</label>
+                  <select id="employee-job-unit"
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>--Select--</option>
+                    <option>Developer</option>
+                    <option>Tester</option>
+                    <option>Project Manager (PM)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-2 md:gap-4">
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-location"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Location</label>
+                  <select id="employee-location"
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>--Select--</option>
+                    <option>DaNang-VietNam</option>
+                    <option>HaNoi-VietNam</option>
+                    <option>HCM-VietNam</option>
+                  </select>
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-emp-status"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Emp Status</label>
+                  <select id="employee-emp-status"
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>--Select--</option>
+                    <option>Full Time</option>
+                    <option>Part Time</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+          <div class="grid md:grid-cols-1 md:gap-4">
+            <span class="text-bg-blue-700 white mb-4 text-xl">Salary</span>
+          </div>
+
+          <div class="grid md:grid-cols-1 md:gap-6 bg-gray-100 p-2 rounded-lg">
+            <div class="grid md:grid-rows-1 md:gap-2 md:col-span-2">
+              <div class="grid md:grid-cols-3 md:gap-4">
+                              
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-salaty-component" class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Salary Component*</label>
+                  <input type="text" id="employee-salaty-component"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-pay-frequency"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Pay Frequency</label>
+                  <select id="employee-pay-frequency"
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>--Select--</option>
+                    <option>Weekly</option>
+                    <option>Semi Monthly</option>
+                    <option>Monthly</option>
+                  </select>
+                </div>
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <label for="employee-salary-amount"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Amount*</label>
+                  <input type="text" id="employee-salary-amount"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+          <div class="grid md:grid-cols-8 md:gap-2 flex justify-end">
+            <div class="col-span-6"></div>
+            <button type="submit"
+              class="text-sm text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+            <button type="submit"
+              class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+
+              Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
