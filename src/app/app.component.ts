@@ -5,6 +5,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { ResponsiveHelperComponent } from './shared/components/responsive-helper/responsive-helper.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
