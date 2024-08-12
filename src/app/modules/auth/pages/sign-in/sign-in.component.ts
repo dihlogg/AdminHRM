@@ -16,12 +16,13 @@ import { Message, MessageService } from 'primeng/api';
   styleUrls: ['./sign-in.component.scss'],
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, RouterLink, AngularSvgIconModule, NgClass, NgIf, ButtonComponent, HttpClientModule, MessagesModule],
+  providers: [MessageService]
 })
 export class SignInComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
   passwordTextType!: boolean;
-  username: string = '';
+  userName: string = '';
   password: string = '';
   errorMessage: string = '';
   messages: Message[] = [];
@@ -38,7 +39,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      userName: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
@@ -53,18 +54,18 @@ export class SignInComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    const { email, password } = this.form.value;
+    const { userName, password } = this.form.value;
     if (this.form.invalid) {
       return;
     }
-    this.username = email;
+    this.userName = userName;
     this.password = password;
 
     this.login();
   }
 
   login(): void {
-    this.service.login(this.username, this.password).subscribe(
+    this.service.login(this.userName, this.password).subscribe(
       () => {
         this.messageService.add({ severity: 'success', summary: 'Success:', detail: 'Login successful' });
         this._router.navigate(['/dashboard']);
