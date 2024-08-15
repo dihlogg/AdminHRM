@@ -8,12 +8,12 @@ import { LoginResponse } from '../../models/loginresponse.model';
 })
 export class AuthenticationApiServiceService {
 
-  readonly authApiUrl = 'http://localhost:5112/User/';
+  readonly authApiUrl = 'http://localhost:5194/Authentication/';
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<void> {
-    return this.http.post(`${this.authApiUrl}login`, { username, password }, { responseType: 'text' })
+  login(userName: string, password: string): Observable<void> {
+    return this.http.post(`${this.authApiUrl}login`, { userName, password }, { responseType: 'text' })
       .pipe(
         map((token: string) => {
           console.log('Token received:', token);

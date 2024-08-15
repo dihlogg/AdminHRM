@@ -5,8 +5,6 @@ import { NftChartCardComponent } from '../../components/nft/nft-chart-card/nft-c
 import { NftSingleCardComponent } from '../../components/nft/nft-single-card/nft-single-card.component';
 import { NftDualCardComponent } from '../../components/nft/nft-dual-card/nft-dual-card.component';
 import { NftHeaderComponent } from '../../components/nft/nft-header/nft-header.component';
-import { Message, MessageService } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
 
 @Component({
     selector: 'app-nft',
@@ -18,12 +16,10 @@ import { MessagesModule } from 'primeng/messages';
         NftSingleCardComponent,
         NftChartCardComponent,
         NftAuctionsTableComponent,
-        MessagesModule
     ],
 })
 export class NftComponent implements OnInit {
   nft: Array<Nft>;
-  messages: Message[] = [];
 
   constructor() {
     this.nft = [
