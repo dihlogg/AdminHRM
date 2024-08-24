@@ -20,12 +20,6 @@ For me, the best strategy for learning new skills is to practice. I have created
 
 <b><img src="https://cdn-icons-png.flaticon.com/512/6897/6897039.png" width="14"/> The project is not finished yet!</b>
 
-See [Demo](https://at.lanno.dev) page.
-
-<p>
-  <img alt="Preview" src="src/assets/preview/preview.gif">
-</p>
-
 #### Versions
 
 <a href="https://angular.io"><img height= "24" src= "https://img.shields.io/badge/Angular 17-DD0031?style=for-the-badge&logo=angular&logoColor=white"></a> <a href="https://tailwindcss.com"><img height= "24" src= "https://img.shields.io/badge/Tailwind 3-0ea5e9?style=for-the-badge&logo=tailwind-css&logoColor=white"></a>
