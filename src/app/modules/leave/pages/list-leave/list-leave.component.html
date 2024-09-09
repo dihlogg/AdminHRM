@@ -1,0 +1,173 @@
+<app-leave-navbar></app-leave-navbar>
+<div class="grid mx-auto px-4 py-4 sm:px-8 lg:container">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
+        <div class="md:col-span-2 xl:col-span-3">
+            <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
+                <form class="max-w-screen-xl mx-auto">
+
+                    <h2 class="text-lg">Leave List</h2>
+
+                    <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+                    <div class="grid md:grid-cols-4 md:gap-6">
+                        <div class="relative z-0 w-full mb-5 group">
+                            <label for="date-range-picker"
+                                class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">From
+                                Date</label>
+
+                            <div class="relative max-w-sm">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Select date">
+                            </div>
+                        </div>
+
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <label for="date-range-picker"
+                                class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">To
+                                Date</label>
+
+                            <div class="relative max-w-sm">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Select date">
+                            </div>
+                        </div>
+
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <label for="employee-status"
+                                class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Show Leave with
+                                Status</label>
+                            <select id="employee-status" name="searchEmployeeStatus"
+                                class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option>--Select--</option>
+                                <option>Reject</option>
+                                <option>Cancel</option>
+                            </select>
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <label for="employee-include"
+                                class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Leave Type</label>
+                            <select id="employee-include"
+                                class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option>--Select--</option>
+                                <option>CAN - FMLA</option>
+                                <option>CAN - Personal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 md:gap-6">
+                        <div class="relative z-0 w-full mb-5 group">
+                            <label for="supervisor-full-name"
+                                class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Employee
+                                Name</label>
+                            <input type="text" id="supervisor-full-name" placeholder="Type for hints..."
+                                name="searchEmployeeVisor"
+                                class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <label for="employee-include"
+                                class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Sub
+                                Unit</label>
+                            <select id="employee-include" name="searchEmployeeUnit"
+                                class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option>--Select--</option>
+                                <option>Developer</option>
+                                <option>Tester</option>
+                                <option>Project Manager (PM)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-8 md:gap-2 flex justify-end">
+                        <div class="col-span-6"></div>
+                        <button type="submit"
+                            class="text-xs text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+                        <button type="submit"
+                            class="text-xs text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="md:col-span-2 xl:col-span-3">
+            <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
+                <div class="relative overflow-x-auto">
+                    <button type="submit"
+                        class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-large text-md w-30 sm:w-30 px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        + Add </button>
+
+                    <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+
+                    <div class="p-card p-card-custom">
+                        <p-table class="rounded-lg" #dt [tableStyle]="{'min-width': '50rem'}" [rowHover]="true"
+                            [filterDelay]="0" [paginator]="true" sortMode="multiple" [showCurrentPageReport]="true"
+                            sortMode="multiple"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
+                            [rowsPerPageOptions]="[5,10,20,25,50]" responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>
+                                        First Name
+                                    </th>
+                                    <th>
+                                        Last Name
+                                    </th>
+                                    <th>
+                                        Job Title
+                                    </th>
+                                    <th>
+                                        Emp Status
+                                    </th>
+                                    <th>
+                                        Sub Unit
+                                    </th>
+                                    <th>
+                                        Supervisor
+                                    </th>
+                                    <th>Action</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-employee let-subUnit let-i="rowIndex">
+                                <tr>
+                                    <td style="width: 15%; min-width: 4rem;">{{employee.firstName}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{employee.lastName}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{employee.jobTitle}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{employee.status}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{employee.supperVisor?.fullName || ''}}
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <button pButton pRipple type="button" icon="pi pi-trash"
+                                            class="p-button p-component p-button-text p-button-icon-only p-button-danger"></button>
+                                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                                            class="p-button p-component p-button-text p-button-icon-only"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
