@@ -22,13 +22,8 @@ export class AuthenticationApiServiceService {
       );
   }
 
-  register(registerData: any): Observable<void> {
-    return this.http.post<LoginResponse>(`${this.authApiUrl}register`, registerData)
-      .pipe(
-        map((response: { token: string; }) => {
-          localStorage.setItem('token', response.token);
-        })
-      );
+  register(userData: any): Observable<any> {
+    return this.http.post(`${this.authApiUrl}register`, userData);
   }
 
   logout(): void {
