@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pim/pim.module').then((m) => m.PimModule),
   },
   {
+    path: 'leave',
+    loadChildren: () => import('./modules/leave/leave.module').then((m) => m.LeaveModule),
+  },
+  {
     path: 'errors',
     loadChildren: () => import('./modules/error/error.module').then((m) => m.ErrorModule),
   },

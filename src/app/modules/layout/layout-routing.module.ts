@@ -14,6 +14,11 @@ const routes: Routes = [
     component: LayoutComponent,
     loadChildren: () => import('../pim/pim.module').then((m) => m.PimModule),
   },
+  {
+    path: 'leave',
+    component: LayoutComponent,
+    loadChildren: () => import('../leave/leave.module').then((m) => m.LeaveModule),
+  },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'error/404' },
 ];

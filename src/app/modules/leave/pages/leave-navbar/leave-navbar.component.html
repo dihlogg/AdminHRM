@@ -1,0 +1,18 @@
+<nav>
+    <ul class="flex space-x-4">
+      <li *ngFor="let menu of leaveMenuService.leaveMenu" class="flex-1">
+        <a
+          [routerLink]="menu['routerLink']"
+          [ngClass]="{
+            'bg-primary text-white': menu['selected'],
+            'bg-white text-gray-800': !menu['selected']
+          }"
+          (click)="setSelected(menu)"
+          class="block px-4 py-2 text-sm font-medium rounded-md transition-colors duration-300"
+        >
+          {{ menu['group'] }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
