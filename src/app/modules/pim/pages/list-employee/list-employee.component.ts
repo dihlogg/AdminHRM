@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
@@ -39,7 +39,7 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class ListEmployeeComponent implements OnInit {
 
-  constructor(private service: EmployeeApiServiceService, private http: HttpClient) { }
+  constructor(private service: EmployeeApiServiceService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     if (this.employees.length === 0 || this.subUnits.length === 0) {
@@ -48,6 +48,7 @@ export class ListEmployeeComponent implements OnInit {
   }
 
   employees: Employee[] = [];
+  selectedEmployeeId: any;
 
   subUnits: SubUnit[] = [];
 
@@ -65,7 +66,7 @@ export class ListEmployeeComponent implements OnInit {
 
   totalCount: number = 0;
 
-  pageIndex: number = 0; 
+  pageIndex: number = 0;
 
   pageSize: number = 5;
 
@@ -97,16 +98,42 @@ export class ListEmployeeComponent implements OnInit {
       }
     );
   }
+  openDeleteModal(idEmployee: any) {
+    this.selectedEmployeeId = idEmployee;
 
-  deleteEmployee(idEmployee: any) {
-    const confirmDelete = confirm('Do you want to delete this employee?');
-    if (confirmDelete) {
-      this.service.deleteEmployee(idEmployee).subscribe(() => {
-        this.refreshData();
-        this.loadEmployees();
-      });
+    const modal = document.getElementById('deleteModal');
+    const overlay = document.getElementById('overlay');
+
+    if (modal && overlay) {
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
     }
   }
+
+  closeDeleteModal() {
+    const modal = document.getElementById('deleteModal');
+    const overlay = document.getElementById('overlay');
+
+    if (modal && overlay) {
+      overlay.classList.remove('flex');
+      overlay.classList.add('hidden');
+
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+  }
+
+  confirmDelete() {
+    this.service.deleteEmployee(this.selectedEmployeeId).subscribe(() => {
+      this.refreshData();
+      this.loadEmployees();
+      this.closeDeleteModal(); // Close modal after deletion
+    });
+  }
+
 
   filteredEmployees(searchEmployee: string, status?: string, jobTitle?: string, supervisorName?: string, subName?: string) {
     if (!searchEmployee && !status && !jobTitle && !supervisorName && !subName) {
@@ -127,7 +154,7 @@ export class ListEmployeeComponent implements OnInit {
   onSortChange(event: any): void {
     const field = event.field;
     const order = event.order === 1 ? 'ASC' : 'DESC';
-    
+
     const index = this.sortFields.indexOf(field);
     if (index > -1) {
       this.sortOrders[index] = order;
@@ -135,7 +162,7 @@ export class ListEmployeeComponent implements OnInit {
       this.sortFields.push(field);
       this.sortOrders.push(order);
     }
-    
+
     this.loadEmployees();
   }
 
@@ -165,5 +192,8 @@ export class ListEmployeeComponent implements OnInit {
   getSubName(subUnitId: string | null): string {
     const subUnit = this.subUnits.find(unit => unit.id === subUnitId);
     return subUnit ? subUnit.subName : 'N/A';
+  }
+  navigateToAddEmployee() {
+    this.router.navigate(['/pim/add-employee']);
   }
 }

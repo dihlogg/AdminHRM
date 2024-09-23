@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationApiServiceService } from 'src/app/core/services/authentication/authentication-api-service.service';
 import { HttpClient } from '@angular/common/http';
-import { Message, MessageService } from 'primeng/api'; // Import MessageService
+import { Message, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,12 +15,12 @@ import { Message, MessageService } from 'primeng/api'; // Import MessageService
   styleUrls: ['./sign-up.component.scss'],
   standalone: true,
   imports: [FormsModule, RouterLink, AngularSvgIconModule, ButtonComponent, ButtonModule, ReactiveFormsModule],
-  providers: [MessageService] // Provide MessageService here
+  providers: [MessageService] 
 })
 export class SignUpComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
-  passwordTextType = false; // Default value
+  passwordTextType = false; 
   userName: string = '';
   email: string = '';
   password: string = '';
@@ -31,17 +31,17 @@ export class SignUpComponent implements OnInit {
     private service: AuthenticationApiServiceService, 
     private _router: Router,
     private http: HttpClient,
-    private messageService: MessageService // Inject MessageService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       userName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]], // Add email field for registration
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-      acceptTerms: [false, Validators.requiredTrue] // Checkbox validation
-    }, { validator: this.passwordsMatch }); // Add custom validation
+      acceptTerms: [false, Validators.requiredTrue] 
+    }, { validator: this.passwordsMatch }); 
   }
 
   get f() {

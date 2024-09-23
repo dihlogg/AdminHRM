@@ -1,8 +1,10 @@
+<p-toast></p-toast>
 <div class="grid mx-auto px-4 py-4 sm:px-8 lg:container">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
         <div class="md:col-span-2 xl:col-span-3">
             <div class="flex-row rounded-lg bg-background px-8 py-4 sm:flex-row">
-                <form (ngSubmit)="onSubmit()" class="max-w-screen-xl mx-auto">
+                <form (ngSubmit)="addEmployee(employeeForm.value)" #employeeForm="ngForm"
+                    class="max-w-screen-xl mx-auto">
                     <h2 class="text-lg">Add Employee</h2>
 
                     <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
@@ -34,12 +36,14 @@
                                     <label for="employee-full-name"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employee
                                         Full Name*</label>
-                                    <input type="text" id="employee-full-name" placeholder="First Name" [(ngModel)]="employeeInfo.firstName" name="firstName" required
+                                    <input type="text" id="employee-full-name" placeholder="First Name"
+                                        [(ngModel)]="employeeInfo.firstName" name="firstName" required
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
 
                                 <div class="relative z-0 w-full mb-5 group">
-                                    <input type="text" id="employee-full-name" placeholder="Last Name" [(ngModel)]="employeeInfo.lastName" name="lastName" required
+                                    <input type="text" id="employee-full-name" placeholder="Last Name"
+                                        [(ngModel)]="employeeInfo.lastName" name="lastName" required
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-7">
                                 </div>
                             </div>
@@ -49,8 +53,21 @@
                                     <label for="base-input"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employee
                                         Job</label>
-                                    <input type="text" id="base-input" placeholder="Job Title" [(ngModel)]="employeeInfo.jobTitle" name="jobTitle" required
+                                    <input type="text" id="base-input" placeholder="Job Title"
+                                        [(ngModel)]="employeeInfo.jobTitle" name="jobTitle" required
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <label for="employee-status"
+                                        class="block mb-2 font-medium text-gray-900 dark:text-white text-sm">Employment
+                                        Status</label>
+                                    <select id="employee-status" name="searchEmployeeStatus"
+                                        [(ngModel)]="employeeInfo.status" name="status" required
+                                        class="text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option>--Select--</option>
+                                        <option>Full Time</option>
+                                        <option>Part Time</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -111,12 +128,15 @@
 
                     <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
-                    <div class="grid md:grid-cols-8 md:gap-2 flex justify-end">
+                    <div class="grid md:grid-cols-8 md:gap-2 justify-end">
                         <div class="col-span-6"></div>
                         <button type="submit"
                             class="text-sm text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
-                        <button type="submit"
-                            class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+ Add</button>
+                        <button type="button"
+                            class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            (click)="addEmployee(employeeForm.value)">
+                            + Add
+                        </button>
                     </div>
                 </form>
             </div>

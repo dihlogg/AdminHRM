@@ -67,9 +67,9 @@ export class InfoEmployeeComponent implements OnInit {
     firstName: '',
     lastName: '',
     jobTitle: '',
+    subUnitId: null,
     status: '',
-    employeeId: null,
-    subUnitId: null
+    employeeId: null
   };
 
   onSubmit() {

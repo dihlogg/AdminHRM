@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
@@ -15,6 +15,8 @@ import { HttpClient } from '@angular/common/http';
 import { SubUnit } from 'src/app/core/models/subUnit.model';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'add-list-employee',
@@ -32,75 +34,50 @@ import { PaginatorModule } from 'primeng/paginator';
     PanelMenuModule,
     ToggleButtonModule,
     PaginatorModule,
-    RouterLink
+    RouterLink,
+    ToastModule
   ],
+  providers: [MessageService]
 })
 export class AddEmployeeComponent implements OnInit {
-
-  constructor(private service: EmployeeApiServiceService, private http: HttpClient) { }
-
-  ngOnInit(): void {
-    if (this.employees.length === 0) {
-      this.refreshData();
-    }
-  }
-
-  @Output() addEmployee = new EventEmitter<boolean>();
-
-  employees: Employee[] = [];
-
-  subUnits: SubUnit[] = [];
-
-  first: number = 0;
-
-  row: number = 5;
-
-  totalRecords: number = 0;
-
-  items!: MenuItem[];
-
-  chartData: any;
-
-  chartOptions: any;
 
   employeeInfo: Employee = {
     firstName: '',
     lastName: '',
     jobTitle: '',
+    subUnitId: null,
     status: '',
-    employeeId: null,
-    subUnitId: null
+    employeeId: null
   };
 
-  onSubmit() {
-    console.log("add mode");
-    this.service.postEmployee(this.employeeInfo).subscribe(res => {
-      this.addEmployee.emit(res);
-      console.log("add mode succesfully");
-    })
+  constructor(private service: EmployeeApiServiceService, 
+    private router: Router,
+    private messageService: MessageService) { }
+
+  ngOnInit(): void {}
+
+  createEmployee() {
+    this.service.postEmployee(this.employeeInfo).subscribe(response => {
+      console.log('Employee created successfully', response);
+    }, error => {
+      console.error('Error creating employee', error);
+    });
   }
-
-    refreshData() {
-      this.service.getEmployees().subscribe(data => {
-        this.employees = data;
-      });
-      this.service.getSubUnits().subscribe(data => {
-        this.subUnits = data;
-      });
-    }
-
-  deleteEmployee(idEmployee: any) {
-    const confirmDelete = confirm('Do you want to delete this employee?');
-    if (confirmDelete) {
-      this.service.deleteEmployee(idEmployee).subscribe(() => {
-        this.refreshData();
-      });
-    }
+  addEmployee(employeeData: any) {
+    this.service.postEmployee(employeeData).subscribe(
+      (response) => {
+        this.messageService.add({severity:'success', summary:'Success', detail:'Employee added successfully!'});
+        setTimeout(() => {
+          this.router.navigate(['/pim/list-employee']);
+        }, 1500);
+      },
+      (error) => {
+        this.messageService.add({severity:'error', summary:'Error', detail:'Failed to add employee!'});
+      }
+    );
   }
-
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.row = event.rows;
+  showSuccess() {
+    this.messageService.add({severity:'success', summary:'Success', detail:'Action completed!'});
   }
 }
 
