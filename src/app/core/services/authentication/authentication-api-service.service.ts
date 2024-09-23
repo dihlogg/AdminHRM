@@ -23,7 +23,7 @@ export class AuthenticationApiServiceService {
   }
 
   register(userData: any): Observable<any> {
-    return this.http.post(`${this.authApiUrl}register`, userData);
+    return this.http.post(`${this.authApiUrl}register?role=user`, userData);
   }
 
   logout(): void {
