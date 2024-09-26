@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="grid mx-auto px-4 py-4 sm:px-8 lg:container">
   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
     <div class="md:col-span-2 xl:col-span-3">
@@ -220,7 +221,7 @@
                       </div>
                     </div>
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                      class="p-button p-component p-button-text p-button-icon-only"></button>
+                      class="p-button p-component p-button-text p-button-icon-only" (click)="navigateToInfoEmployee(employee.id)"></button>
                   </td>
                 </tr>
               </ng-template>
