@@ -14,6 +14,7 @@ const routes: Routes = [
       { path: 'list-employee', component: ListEmployeeComponent},
       { path: 'add-employee', component: AddEmployeeComponent },
       { path: 'info-employee', component: InfoEmployeeComponent },
+      { path: 'info-employee/:id', component: InfoEmployeeComponent },
       { path: '**', redirectTo: 'list-employee' },
     ],
   },

@@ -2,7 +2,7 @@
   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
     <div class="md:col-span-2 xl:col-span-3">
       <div class="flex-row rounded-lg bg-background px-8 py-4 sm:flex-row">
-        <form (ngSubmit)="onSubmit()" class="max-w-screen-xl mx-auto">
+        <form class="max-w-screen-xl mx-auto" (ngSubmit)="updateEmployeeData()">
 
           <div class="flex items-center gap-4">
             <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="">
@@ -283,11 +283,10 @@
                   <label for="employee-job-title"
                     class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Job Title</label>
                   <select id="employee-job-title"
-                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option>--Select--</option>
-                    <option>Dev</option>
-                    <option>Tester</option>
-                    <option>PM</option>
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    [(ngModel)]="employeeInfo.jobTitle" name="jobTitle" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let title of jobTitles" [value]="title">{{ title }}</option>
                   </select>
                 </div>
 
@@ -321,10 +320,10 @@
                   <label for="employee-emp-status"
                     class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Emp Status</label>
                   <select id="employee-emp-status"
-                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option>--Select--</option>
-                    <option>Full Time</option>
-                    <option>Part Time</option>
+                    class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    [(ngModel)]="employeeInfo.status" name="status" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let status of empStatus" [value]="status">{{ status }}</option>
                   </select>
                 </div>
               </div>
@@ -340,9 +339,10 @@
           <div class="grid md:grid-cols-1 md:gap-6 bg-gray-100 p-2 rounded-lg">
             <div class="grid md:grid-rows-1 md:gap-2 md:col-span-2">
               <div class="grid md:grid-cols-3 md:gap-4">
-                              
+
                 <div class="relative z-0 w-full mb-5 group">
-                  <label for="employee-salaty-component" class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Salary Component*</label>
+                  <label for="employee-salaty-component"
+                    class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Salary Component*</label>
                   <input type="text" id="employee-salaty-component"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
@@ -371,13 +371,14 @@
 
           <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
-          <div class="grid md:grid-cols-8 md:gap-2 flex justify-end">
+          <div class="grid md:grid-cols-8 md:gap-2 justify-end">
             <div class="col-span-6"></div>
             <button type="submit"
               class="text-sm text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
             <button type="submit"
-              class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+
-              Add</button>
+              class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              (click)="updateEmployeeData()">
+              + Update</button>
           </div>
         </form>
       </div>

@@ -1,20 +1,21 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 import { Employee, Supervisor } from 'src/app/core/models/employee.model';
 import { EmployeeApiServiceService } from 'src/app/core/services/employee/employee-api-service.service';
 import { HttpClient } from '@angular/common/http';
 import { SubUnit } from 'src/app/core/models/subUnit.model';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'add-info-employee',
@@ -32,36 +33,35 @@ import { PaginatorModule } from 'primeng/paginator';
     PanelMenuModule,
     ToggleButtonModule,
     PaginatorModule,
-    RouterLink
+    RouterLink,
   ],
 })
 export class InfoEmployeeComponent implements OnInit {
 
-  constructor(private service: EmployeeApiServiceService, private http: HttpClient) { }
+  constructor(private service: EmployeeApiServiceService, 
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute,
+    private messageService: MessageService) { }
 
-  ngOnInit(): void {
-    if (this.employees.length === 0) {
-      this.refreshData();
+    ngOnInit(): void {
+      this.employeeId = this.route.snapshot.paramMap.get('id');
+      if (this.employeeId) {
+        this.getEmployeeData(this.employeeId);
+      }
     }
-  }
-
-  @Output() addEmployee = new EventEmitter<boolean>();
 
   employees: Employee[] = [];
 
   subUnits: SubUnit[] = [];
 
-  first: number = 0;
+  employeeId: string | null = null;
 
-  row: number = 5;
+  employeeData: any = {};
 
-  totalRecords: number = 0;
+  jobTitles: string[] = ['Dev', 'Tester', 'PM', 'Designer'];
 
-  items!: MenuItem[];
-
-  chartData: any;
-
-  chartOptions: any;
+  empStatus: string[] = ['Full Time', 'Part Time', 'Contract'];
 
   employeeInfo: Employee = {
     firstName: '',
@@ -72,35 +72,21 @@ export class InfoEmployeeComponent implements OnInit {
     employeeId: null
   };
 
-  onSubmit() {
-    console.log("add mode");
-    this.service.postEmployee(this.employeeInfo).subscribe(res => {
-      this.addEmployee.emit(res);
-      console.log("add mode succesfully");
-    })
+  getEmployeeData(employeeId: string) {
+    this.service.getEmployeeById(employeeId).subscribe(data => {
+      this.employeeInfo = data;
+    });
   }
-
-    refreshData() {
-      this.service.getEmployees().subscribe(data => {
-        this.employees = data;
-      });
-      this.service.getSubUnits().subscribe(data => {
-        this.subUnits = data;
-      });
-    }
-
-  deleteEmployee(idEmployee: any) {
-    const confirmDelete = confirm('Do you want to delete this employee?');
-    if (confirmDelete) {
-      this.service.deleteEmployee(idEmployee).subscribe(() => {
-        this.refreshData();
-      });
-    }
+  updateEmployeeData() {
+    this.service.putEmployee(this.employeeInfo).subscribe(response => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee updated successfully!' });
+      this.navigateToListEmployee();
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update employee!' });
+    });
   }
-
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.row = event.rows;
+  navigateToListEmployee() {
+    this.router.navigate(['/pim/list-employee']);
   }
 }
 

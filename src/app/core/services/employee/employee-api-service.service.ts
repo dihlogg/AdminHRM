@@ -34,6 +34,10 @@ export class EmployeeApiServiceService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.delete<any>(this.employeeApiUrl + 'DeleteEmployee/' + employeeId, httpOptions);
   }
+  getEmployeeById(employeeId: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get<any>(this.employeeApiUrl + 'GetEmployeeById/' + employeeId, httpOptions);
+  }
 
   searchEmployees(employeeName?: string, status?: string, jobTitle?: string, supervisorName?: string, subName?: string): Observable<any[]> {
     let params = new HttpParams();

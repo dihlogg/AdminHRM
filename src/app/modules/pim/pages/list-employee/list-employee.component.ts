@@ -16,6 +16,8 @@ import { SubUnit } from 'src/app/core/models/subUnit.model';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-list-employee',
@@ -34,12 +36,17 @@ import { InputTextModule } from 'primeng/inputtext';
     ToggleButtonModule,
     PaginatorModule,
     RouterLink,
-    InputTextModule
+    InputTextModule,
+    ToastModule
   ],
+  providers: [MessageService]
 })
 export class ListEmployeeComponent implements OnInit {
 
-  constructor(private service: EmployeeApiServiceService, private http: HttpClient, private router: Router) { }
+  constructor(private service: EmployeeApiServiceService, 
+    private http: HttpClient, 
+    private router: Router,
+    private messageService : MessageService) { }
 
   ngOnInit(): void {
     if (this.employees.length === 0 || this.subUnits.length === 0) {
@@ -130,7 +137,8 @@ export class ListEmployeeComponent implements OnInit {
     this.service.deleteEmployee(this.selectedEmployeeId).subscribe(() => {
       this.refreshData();
       this.loadEmployees();
-      this.closeDeleteModal(); // Close modal after deletion
+      this.closeDeleteModal();
+      this.messageService.add({severity:'success', summary:'Success', detail:'Employee deleted successfully!'});
     });
   }
 
@@ -146,7 +154,7 @@ export class ListEmployeeComponent implements OnInit {
   }
 
   onPageChange(event: any): void {
-    this.pageIndex = event.page + 1;  // PrimeNG Paginator pages are zero-based
+    this.pageIndex = event.page + 1;
     this.pageSize = event.rows;
     this.loadEmployees();
   }
@@ -195,5 +203,8 @@ export class ListEmployeeComponent implements OnInit {
   }
   navigateToAddEmployee() {
     this.router.navigate(['/pim/add-employee']);
+  }
+  navigateToInfoEmployee(employeeId: string) {
+    this.router.navigate(['/pim/info-employee', employeeId]);
   }
 }
