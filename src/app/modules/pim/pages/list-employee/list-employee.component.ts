@@ -75,7 +75,7 @@ export class ListEmployeeComponent implements OnInit {
 
   pageIndex: number = 0;
 
-  pageSize: number = 5;
+  pageSize: number = 100;
 
   // Updated for multiple sort fields
   sortFields: string[] = ['firstName'];
@@ -105,6 +105,7 @@ export class ListEmployeeComponent implements OnInit {
       }
     );
   }
+
   openDeleteModal(idEmployee: any) {
     this.selectedEmployeeId = idEmployee;
 
@@ -132,7 +133,6 @@ export class ListEmployeeComponent implements OnInit {
       modal.classList.add('hidden');
     }
   }
-
   confirmDelete() {
     this.service.deleteEmployee(this.selectedEmployeeId).subscribe(() => {
       this.refreshData();
@@ -179,8 +179,18 @@ export class ListEmployeeComponent implements OnInit {
 
     if (!isShiftPressed) {
       // Single sorting mode
-      this.sortFields = [field];
-      this.sortOrders = ['ASC'];
+      if (this.sortFields.length === 1 && this.sortFields[0] === field) {
+        // this.sortOrders[0] = this.sortOrders[0] === 'ASC' ? 'DESC' : 'ASC';
+        if (this.sortOrders[0] === 'ASC') {
+          this.sortOrders[0] = 'DESC';
+        } else if (this.sortOrders[0] === 'DESC') {
+          this.sortFields = [];
+          this.sortOrders = [];
+        }
+      } else {
+        this.sortFields = [field];
+        this.sortOrders = ['ASC'];
+      }
     } else {
       // Multiple sorting mode
       const index = this.sortFields.indexOf(field);

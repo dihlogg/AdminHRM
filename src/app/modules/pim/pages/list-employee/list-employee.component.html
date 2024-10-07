@@ -16,7 +16,7 @@
                 class="block mb-2  font-medium text-gray-900 dark:text-white text-xs">Employee
                 Name</label>
               <input type="text" id="employee-full-name" placeholder="Type for hints..." name="searchEmployee"
-                [(ngModel)]="searchEmployee" (keyup.enter)="filteredEmployees(searchEmployee)"
+                [(ngModel)]="searchEmployee"
                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
 
@@ -33,7 +33,6 @@
                 class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Employment
                 Status</label>
               <select id="employee-status" name="searchEmployeeStatus" [(ngModel)]="status"
-                (keyup.enter)="filteredEmployees(status)"
                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option>--Select--</option>
                 <option>Full Time</option>
@@ -60,7 +59,7 @@
                 class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Supervisor
                 Name</label>
               <input type="text" id="supervisor-full-name" placeholder="Type for hints..." name="searchEmployeeVisor"
-                [(ngModel)]="supervisorName" (keyup.enter)="filteredEmployees(supervisorName)"
+                [(ngModel)]="supervisorName"
                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
 
@@ -68,7 +67,7 @@
               <label for="job-title" class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Job
                 Title</label>
               <input type="text" id="job-title" placeholder="Type for hints..." name="searchEmployeeJob"
-                [(ngModel)]="jobTitle" (keyup.enter)="filteredEmployees(jobTitle)"
+                [(ngModel)]="jobTitle"
                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
 
@@ -76,7 +75,6 @@
               <label for="employee-include" class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Sub
                 Unit</label>
               <select id="employee-include" name="searchEmployeeUnit" [(ngModel)]="subName"
-                (keyup.enter)="filteredEmployees(subName)"
                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option>--Select--</option>
                 <option>Developer</option>
@@ -90,7 +88,7 @@
             <div class="col-span-6"></div>
             <button type="submit"
               class="text-xs text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
-            <button type="submit" (click)="filteredEmployees(searchEmployee, status, jobTitle, supervisorName, subName)"
+            <button type="submit"
               class="text-xs text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
           </div>
         </form>
@@ -108,11 +106,19 @@
           <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
           <div class="p-card p-card-custom">
-            <p-table class="rounded-lg" #dt [value]="employees" [tableStyle]="{'min-width': '50rem'}" [rowHover]="true"
-              [filterDelay]="0" [paginator]="true" [rows]="pageSize" sortMode="multiple"
-              (onPageChange)="onPageChange($event)" [totalRecords]="totalRecords" [showCurrentPageReport]="true"
-              sortMode="multiple" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
-              [rowsPerPageOptions]="[5,10,20,25,50]" responsiveLayout="scroll">
+            <p-table class="rounded-lg" 
+            #dt
+            [value]="employees"
+            [tableStyle]="{'min-width': '50rem'}"
+            [rowHover]="true"
+            [paginator]="true"
+            [rows]="pageSize"
+            [totalRecords]="totalRecords"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employees"
+            [rowsPerPageOptions]="[5,10,20,25,50]"
+            responsiveLayout="scroll"
+            (onPageChange)="onPageChange($event)">
               <ng-template pTemplate="header">
                 <tr>
                   <th>
@@ -180,8 +186,6 @@
                     <button pButton pRipple type="button" icon="pi pi-trash"
                       class="p-button p-component p-button-text p-button-icon-only p-button-danger"
                       (click)="openDeleteModal(employee.id)"></button>
-
-                    <!-- Modal for confirmation -->
                     <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
                     <div id="deleteModal" tabindex="-1" aria-hidden="true"
