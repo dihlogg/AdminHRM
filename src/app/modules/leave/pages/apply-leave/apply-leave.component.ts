@@ -39,7 +39,7 @@ import { PaginatorModule } from 'primeng/paginator';
 export class ApplyLeaveComponent implements OnInit {
 
   ngOnInit(): void {
-    throw new Error("Method not implemented.");
+
   }
 
 }

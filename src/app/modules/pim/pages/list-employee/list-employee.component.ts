@@ -18,6 +18,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { PimNavbarComponent } from "../pim-navbar/pim-navbar.component";
 
 @Component({
   selector: 'app-list-employee',
@@ -37,8 +38,9 @@ import { MessageService } from 'primeng/api';
     PaginatorModule,
     RouterLink,
     InputTextModule,
-    ToastModule
-  ],
+    ToastModule,
+    PimNavbarComponent
+],
   providers: [MessageService]
 })
 export class ListEmployeeComponent implements OnInit {

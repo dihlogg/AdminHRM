@@ -16,6 +16,7 @@ import { SubUnit } from 'src/app/core/models/subUnit.model';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
 import { MessageService } from 'primeng/api';
+import { PimNavbarComponent } from "../pim-navbar/pim-navbar.component";
 
 @Component({
   selector: 'add-info-employee',
@@ -23,7 +24,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./info-employee.component.css'],
   standalone: true,
   imports: [
-  CommonModule,
+    CommonModule,
     FormsModule,
     RouterOutlet,
     MenuModule,
@@ -34,7 +35,8 @@ import { MessageService } from 'primeng/api';
     ToggleButtonModule,
     PaginatorModule,
     RouterLink,
-  ],
+    PimNavbarComponent
+],
 })
 export class InfoEmployeeComponent implements OnInit {
 
