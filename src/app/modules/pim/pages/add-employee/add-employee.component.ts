@@ -17,6 +17,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { PimNavbarComponent } from "../pim-navbar/pim-navbar.component";
 
 @Component({
   selector: 'add-list-employee',
@@ -24,7 +25,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./add-employee.component.css'],
   standalone: true,
   imports: [
-  CommonModule,
+    CommonModule,
     FormsModule,
     RouterOutlet,
     MenuModule,
@@ -35,8 +36,9 @@ import { MessageService } from 'primeng/api';
     ToggleButtonModule,
     PaginatorModule,
     RouterLink,
-    ToastModule
-  ],
+    ToastModule,
+    PimNavbarComponent
+],
   providers: [MessageService]
 })
 export class AddEmployeeComponent implements OnInit {

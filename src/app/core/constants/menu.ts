@@ -19,11 +19,6 @@ export class Menu {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'Pim',
           route: '/pim',
-          children: [
-            { label: 'List Employee', route: '/pim/list-employee' },
-            { label: 'Add Employee', route: '/pim/add-employee' },
-            { label: 'Info Employee', route: '/pim/info-employee' },
-          ],
         },
         {
           icon: 'assets/icons/heroicons/outline/lock-closed.svg',

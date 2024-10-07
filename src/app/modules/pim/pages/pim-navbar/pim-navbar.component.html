@@ -1,6 +1,6 @@
 <nav class="flex-col bg-white px-2 py-2 sm:flex-row">
   <ul class="flex space-x-4 mt-2">
-    <li *ngFor="let menu of leaveMenuService.leaveMenu" [ngClass]="{'ml-6': menu === leaveMenuService.leaveMenu[0]}">
+    <li *ngFor="let menu of pimMenuService.pimMenu" [ngClass]="{'ml-6': menu === pimMenuService.pimMenu[0]}">
       <a [routerLink]="menu['routerLink']" 
         [ngClass]="{
           'bg-[#FFF2E8] text-[#F66C13]': menu['selected'],

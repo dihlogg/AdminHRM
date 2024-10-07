@@ -21,7 +21,7 @@ export class LeaveMenuService {
       selected: false,
     },
     {
-      label: 'List Leave',
+      label: 'Leave List',
       routerLink: '/leave/list-leave',
       group: 'List Leave',
       active: false,

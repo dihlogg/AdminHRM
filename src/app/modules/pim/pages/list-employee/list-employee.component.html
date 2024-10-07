@@ -1,7 +1,8 @@
+<app-pim-navbar></app-pim-navbar>
 <p-toast></p-toast>
 <div class="grid mx-auto px-4 py-4 sm:px-8 lg:container">
   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
-    <div class="md:col-span-2 xl:col-span-3">
+    <div class="md:col-span-2 mx-5 xl:col-span-3">
       <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
         <form class="max-w-screen-xl mx-auto"
           (ngSubmit)="filteredEmployees(searchEmployee, status, jobTitle, supervisorName, subName)">
@@ -87,19 +88,23 @@
           <div class="grid md:grid-cols-8 md:gap-2 justify-end">
             <div class="col-span-6"></div>
             <button type="submit"
-              class="text-xs text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
-            <button type="submit"
-              class="text-xs text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                            class="text-sm text-green-400 border-2 rounded-full border-green-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Cancel
+                        </button>
+                        <button type="submit"
+                            class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center">
+                            Search
+                        </button>
           </div>
         </form>
       </div>
     </div>
 
-    <div class="md:col-span-2 xl:col-span-3">
+    <div class="md:col-span-2 mx-5 xl:col-span-3">
       <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
         <div class="relative overflow-x-auto">
           <button type="submit"
-            class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-large text-md w-30 sm:w-30 px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-9 py-2 text-center"
             (click)="navigateToAddEmployee()">
             + Add </button>
 
