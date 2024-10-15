@@ -124,42 +124,51 @@
                     <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
                     <div class="p-card p-card-custom">
-                        <p-table class="rounded-lg" #dt [tableStyle]="{'min-width': '50rem'}" [rowHover]="true"
-                            [filterDelay]="0" [paginator]="true" sortMode="multiple" [showCurrentPageReport]="true"
-                            sortMode="multiple"
-                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
-                            [rowsPerPageOptions]="[5,10,20,25,50]" responsiveLayout="scroll">
+                        <p-table class="rounded-lg" 
+                        [value]="leaves"
+          #dt
+          [tableStyle]="{'min-width': '50rem'}"
+          [rowHover]="true"
+          [filterDelay]="0"
+          [paginator]="true"
+          [rows]="10"               
+          [totalRecords]="totalRecords"
+          sortMode="multiple"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
+          responsiveLayout="scroll">
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th>
-                                        First Name
+                                        Date
                                     </th>
                                     <th>
-                                        Last Name
+                                        Employee Name
                                     </th>
                                     <th>
-                                        Job Title
+                                        Leave Type
                                     </th>
                                     <th>
-                                        Emp Status
+                                        Leave Status
                                     </th>
                                     <th>
-                                        Sub Unit
+                                        Number Of Days
                                     </th>
                                     <th>
-                                        Supervisor
+                                        Leave Balance(Days)
                                     </th>
-                                    <th>Action</th>
+                                    <th>
+                                        Comment
+                                    </th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-employee let-subUnit let-i="rowIndex">
+                            <ng-template pTemplate="body" let-leave let-i="rowIndex">
                                 <tr>
-                                    <td style="width: 15%; min-width: 4rem;">{{employee.firstName}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{employee.lastName}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{employee.jobTitle}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{employee.status}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{employee.supperVisor?.fullName || ''}}
-                                    </td>
+                                    <td style="width: 15%; min-width: 4rem;">{{leave.fromDate}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{leave.employeeName}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{leave.leaveType}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{leave.leaveStatus}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
                                     <td style="width: 20%;">
                                         <button pButton pRipple type="button" icon="pi pi-trash"
                                             class="p-button p-component p-button-text p-button-icon-only p-button-danger"></button>
