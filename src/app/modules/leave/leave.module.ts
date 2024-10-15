@@ -7,10 +7,12 @@ import { MyLeaveComponent } from './pages/my-leave/my-leave.component';
 import { ApplyLeaveComponent } from './pages/apply-leave/apply-leave.component';
 import { ListLeaveComponent } from './pages/list-leave/list-leave.component';
 import { LeaveNavbarComponent } from './pages/leave-navbar/leave-navbar.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-  imports: [LeaveNavbarComponent, LeaveRoutingModule, HttpClientModule, AngularSvgIconModule.forRoot()],
-  providers: [EmployeeApiServiceService],
+  imports: [LeaveRoutingModule, ToastModule, HttpClientModule, AngularSvgIconModule.forRoot()],
+  providers: [EmployeeApiServiceService, MessageService]
 })
 
 export class LeaveModule {}

@@ -13,6 +13,8 @@ export class EmployeeApiServiceService {
 
   readonly unitApiUrl = 'http://localhost:5194/SubUnit/';
 
+  readonly leaveApiUrl = 'http://localhost:5194/Leave/';
+
   constructor(private http: HttpClient) { }
 
   // Employee
@@ -89,5 +91,25 @@ export class EmployeeApiServiceService {
   deleteSubUnit(subUnitId: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.delete<any>(this.unitApiUrl + 'DeleteSubUnit/' + subUnitId, httpOptions);
+  }
+
+  // Leave
+  getLeaves(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'GetLeaves');
+  }
+
+  postLeave(leave: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post<any>(this.leaveApiUrl + 'PostLeave', leave, httpOptions);
+  }
+
+  putLeave(leave: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put<any>(this.leaveApiUrl + 'PutLeave', leave, httpOptions);
+  }
+
+  deleteLeave(leaveId: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.delete<any>(this.leaveApiUrl + 'DeleteLeave/' + leaveId, httpOptions);
   }
 }

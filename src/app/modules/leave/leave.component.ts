@@ -11,10 +11,8 @@ import { LeaveNavbarComponent } from "./pages/leave-navbar/leave-navbar.componen
   imports: [RouterOutlet, NavbarComponent, LeaveNavbarComponent],
 })
 export class LeaveComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit(): void {}
 
 }

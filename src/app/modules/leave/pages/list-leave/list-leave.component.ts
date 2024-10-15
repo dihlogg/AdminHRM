@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
-import { Employee, Supervisor } from 'src/app/core/models/employee.model';
-import { EmployeeApiServiceService } from 'src/app/core/services/employee/employee-api-service.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SubUnit } from 'src/app/core/models/subUnit.model';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 import { LeaveNavbarComponent } from "../leave-navbar/leave-navbar.component";
+import { Leave } from 'src/app/core/models/leave.model';
+import { LeaveApiServiceService } from 'src/app/core/services/leave/leave-api-service.service';
 
 @Component({
   selector: 'app-list-leave',
+  templateUrl: './list-leave.component.html',
+  styleUrls: ['./list-leave.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -34,11 +37,46 @@ import { LeaveNavbarComponent } from "../leave-navbar/leave-navbar.component";
     PaginatorModule,
     RouterLink,
     InputTextModule,
-    LeaveNavbarComponent
-],
-  templateUrl: './list-leave.component.html',
-  styleUrl: './list-leave.component.scss'
+    ToastModule,
+    LeaveNavbarComponent,
+    HttpClientModule
+  ],
+  providers: [MessageService, LeaveApiServiceService]
 })
-export class ListLeaveComponent {
+export class ListLeaveComponent implements OnInit {
+  leaves: Leave[] = [];
+  selectedEmployeeId: any;
+  subUnits: SubUnit[] = [];
+  first: number = 0;
+  row: number = 5;
+  totalRecords: number = 0;
+  employeeName = '';
+  subName = '';
+  leaveStatus = '';
+  LeaveType = '';
+  totalCount: number = 0;
+  pageIndex: number = 0;
+  pageSize: number = 100;
 
+  constructor(
+    private leaveService: LeaveApiServiceService, 
+    private router: Router,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.refreshData();
+  }
+
+  refreshData() {
+    this.leaveService.getLeaves().subscribe(
+      (data) => {
+        this.leaves = data;
+        console.log('Fetched leaves:', this.leaves);
+      },
+      (error) => {
+        console.error('Error fetching leaves:', error);
+      }
+    );
+  }
 }
