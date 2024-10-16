@@ -39,7 +39,8 @@
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js",
-              "node_modules/flowbite/dist/flowbite.min.js"
+              "node_modules/flowbite/dist/flowbite.min.js",
+              "node_modules/flowbite/dist/datepicker.js"
             ],
             "allowedCommonJsDependencies": [
               "apexcharts"
@@ -116,7 +117,8 @@
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js",
-              "node_modules/flowbite/dist/flowbite.min.js"
+              "node_modules/flowbite/dist/flowbite.min.js",
+              "node_modules/flowbite/dist/datepicker.js"
             ]
           }
         }
