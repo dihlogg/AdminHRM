@@ -118,62 +118,67 @@
             <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
                 <div class="relative overflow-x-auto">
                     <button type="submit"
-                        class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-large text-md w-30 sm:w-30 px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-9 py-2 text-center"
+                        (click)="navigateToApplyLeave()">
                         + Add </button>
 
                     <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
                     <div class="p-card p-card-custom">
-                        <p-table class="rounded-lg" 
-                        [value]="leaves"
-          #dt
-          [tableStyle]="{'min-width': '50rem'}"
-          [rowHover]="true"
-          [filterDelay]="0"
-          [paginator]="true"
-          [rows]="10"               
-          [totalRecords]="totalRecords"
-          sortMode="multiple"
-          [showCurrentPageReport]="true"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
-          responsiveLayout="scroll">
+                        <p-table class="rounded-lg" [value]="leaves" #dt [tableStyle]="{'min-width': '50rem'}"
+                            [rowHover]="true" [filterDelay]="0" [paginator]="true" [rows]="10"
+                            [totalRecords]="totalRecords" sortMode="multiple" [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
+                            responsiveLayout="scroll">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th>
-                                        Date
-                                    </th>
-                                    <th>
-                                        Employee Name
-                                    </th>
-                                    <th>
-                                        Leave Type
-                                    </th>
-                                    <th>
-                                        Leave Status
-                                    </th>
-                                    <th>
-                                        Number Of Days
-                                    </th>
-                                    <th>
-                                        Leave Balance(Days)
-                                    </th>
-                                    <th>
-                                        Comment
-                                    </th>
+                                    <th>Date</th>
+                                    <th>Employee Name</th>
+                                    <th>Leave Type</th>
+                                    <th>Leave Status</th>
+                                    <th>Number Of Days</th>
+                                    <th>Leave Balance(Days)</th>
+                                    <th>Comment</th>
+                                    <th>Actions</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-leave let-i="rowIndex">
                                 <tr>
-                                    <td style="width: 15%; min-width: 4rem;">{{leave.fromDate}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">
+                                        {{ leave.fromDate | date:'yyyy-dd-MM' }} to {{ leave.toDate | date:'yyyy-dd-MM'
+                                        }}
+                                    </td>
                                     <td style="width: 15%; min-width: 4rem;">{{leave.employeeName}}</td>
                                     <td style="width: 15%; min-width: 4rem;">{{leave.leaveType}}</td>
                                     <td style="width: 15%; min-width: 4rem;">{{leave.leaveStatus}}</td>
                                     <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
-                                    <td style="width: 20%;">
-                                        <button pButton pRipple type="button" icon="pi pi-trash"
-                                            class="p-button p-component p-button-text p-button-icon-only p-button-danger"></button>
-                                        <button pButton pRipple type="button" icon="pi pi-pencil"
-                                            class="p-button p-component p-button-text p-button-icon-only"></button>
+                                    <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
+                                    <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
+                                    <td style="width: 10%; min-width: 4rem;">
+                                        <div class="relative" appClickOutside (clickOutside)="closeDropdown(i)">
+                                            <button class="bg-blue-500 text-white px-3 py-1 rounded-md" type="button"
+                                                (click)="toggleDropdown(i)">
+                                                Actions
+                                                <svg class="w-2.5 h-2.5 inline" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                                                </svg>
+                                            </button>
+                                            <div [ngClass]="{'hidden': !dropdownStates[i]}"
+                                                class="absolute right-0 mt-2 w-44 bg-white rounded-md shadow-lg z-20">
+                                                <ul class="py-2 text-gray-700">
+                                                    <li>
+                                                        <a href="pim/info-employee"
+                                                            class="block px-4 py-2 hover:bg-gray-100">View Pim Info</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#"
+                                                            class="block px-4 py-2 hover:bg-gray-100">Comment</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </ng-template>

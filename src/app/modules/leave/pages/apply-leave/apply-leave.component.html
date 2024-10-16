@@ -3,8 +3,9 @@
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
         <div class="md:col-span-2 mx-5 xl:col-span-3">
             <div class="flex-row rounded-lg bg-background px-8 py-4 sm:flex-row">
-                <form class="max-w-screen-xl mx-auto">
-                    <h2 class="text-lg">Add Employee</h2>
+                <form (ngSubmit)="addNewLeave(leaveForm)" #leaveForm="ngForm"
+                class="max-w-screen-xl mx-auto">
+                    <h2 class="text-lg">Apply Leave</h2>
 
                     <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
@@ -12,10 +13,11 @@
                         <div class="grid md:grid-rows-2 md:gap-1 md:col-span-2">
                             <div class="grid md:grid-cols-1 md:gap-4">
                                 <div class="relative z-0 w-full mb-5 group">
-                                    <label for="employee-nationality"
+                                    <label for="leave-type"
                                         class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Leave
                                         Type</label>
-                                    <select id="employee-nationality"
+                                    <select id="leave-type"
+                                    [(ngModel)]="leaveInfo.leaveType" name="leaveType" required
                                         class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option>--Select--</option>
                                         <option>CAN - FMLA</option>
@@ -25,53 +27,64 @@
 
                             <div class="grid md:grid-cols-2 md:gap-4">
                                 <div class="relative z-0 w-full mb-5 group">
-                                    <label for="date-range-picker"
+                                    <label for="from-date"
                                         class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">From
-                                        Date</label>
+                                        Date*</label>
 
-                                    <div class="relative max-w-sm">
-                                        <div
-                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 20 20">
+                                    <div class="relative">
+                                        <!-- Input field -->
+                                        <input id="fromDate" placeholder="YYYY-MM-DD" [(ngModel)]="leaveInfo.fromDate" name="fromDate" required
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            datepicker datepicker-autohide>
+
+                                        <!-- Date icon button -->
+                                        <button type="button" id="fromDateIcon"
+                                            class="absolute inset-y-0 right-0 flex items-center pr-3"
+                                            (click)="openFromDatePicker()">
+                                            <svg class="w-6 h-6 text-gray-500 hover:text-blue-500 transition-colors"
+                                                fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path
-                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                    d="M6 2a1 1 0 0 1 1 1v1h6V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1zm10 8H4v8h12V10zM5 9h10V7H5v2z" />
                                             </svg>
-                                        </div>
-                                        <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Select date">
+                                        </button>
                                     </div>
                                 </div>
 
+                                <!-- To Date Section -->
                                 <div class="relative z-0 w-full mb-5 group">
-                                    <label for="date-range-picker"
+                                    <label for="toDate"
                                         class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">To
-                                        Date</label>
+                                        Date*</label>
 
-                                    <div class="relative max-w-sm">
-                                        <div
-                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 20 20">
+                                    <!-- Input container with icon -->
+                                    <div class="relative">
+                                        <!-- Input field -->
+                                        <input id="toDate" placeholder="YYYY-MM-DD" [(ngModel)]="leaveInfo.toDate" name="toDate" required
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            datepicker datepicker-autohide>
+
+                                        <!-- Date icon button -->
+                                        <button type="button" id="toDateIcon"
+                                            class="absolute inset-y-0 right-0 flex items-center pr-3"
+                                            (click)="openToDatePicker()">
+                                            <svg class="w-6 h-6 text-gray-500 hover:text-blue-500 transition-colors"
+                                                fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path
-                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                    d="M6 2a1 1 0 0 1 1 1v1h6V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1zm10 8H4v8h12V10zM5 9h10V7H5v2z" />
                                             </svg>
-                                        </div>
-                                        <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Select date">
+                                        </button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="grid md:grid-cols-2 md:gap-4">
                                 <div class="relative z-0 w-full mb-5 group">
-                                    <label for="employee-nationality"
+                                    <label for="duration"
                                         class="block mb-2 font-medium text-sm text-gray-700 dark:text-white">Duration</label>
-                                    <select id="employee-nationality"
+                                    <select id="duration"
+                                    [(ngModel)]="leaveInfo.leaveStatus" name="leaveStatus" required
                                         class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option>--Select--</option>
                                         <option>All Day</option>
@@ -83,14 +96,12 @@
 
                             <div class="grid md:grid-cols-1 md:gap-4 bg-gray-100 p-2 rounded-lg">
                                 <div class="relative z-0 w-full mb-5 group">
-
                                     <label for="message"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                                         message</label>
                                     <textarea id="message" rows="4"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Write your thoughts here..."></textarea>
-
                                 </div>
                             </div>
                         </div>
@@ -98,16 +109,23 @@
 
                     <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
-                    <div class="grid md:grid-cols-8 md:gap-2 flex justify-end">
+                    <div class="grid md:grid-cols-8 md:gap-2 justify-end">
                         <div class="col-span-6"></div>
+                        <button type="button"
+                            class="text-sm text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Cancel
+                        </button>
                         <button type="submit"
-                            class="text-sm text-bg-blue-700 white border-2 rounded-full border-bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
-                        <button type="submit"
-                            class="text-sm text-white rounded-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+
-                            Apply</button>
+                            class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center"
+                            (click)="addNewLeave(leaveForm.value)">
+                            + Apply
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Thêm Flowbite JS -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/datepicker.js"></script> -->

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
@@ -44,6 +44,7 @@ import { LeaveApiServiceService } from 'src/app/core/services/leave/leave-api-se
   providers: [MessageService, LeaveApiServiceService]
 })
 export class ListLeaveComponent implements OnInit {
+  dropdownStates: boolean[] = [];
   leaves: Leave[] = [];
   selectedEmployeeId: any;
   subUnits: SubUnit[] = [];
@@ -59,13 +60,30 @@ export class ListLeaveComponent implements OnInit {
   pageSize: number = 100;
 
   constructor(
-    private leaveService: LeaveApiServiceService, 
+    private leaveService: LeaveApiServiceService,
     private router: Router,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.refreshData();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.relative')) {
+      // Close all dropdowns if clicking outside of the dropdown
+      this.dropdownStates.fill(false);
+    }
+  }
+
+  closeDropdown(index: number): void {
+    this.dropdownStates[index] = false;
+  }
+
+  toggleDropdown(index: number): void {
+    this.dropdownStates[index] = !this.dropdownStates[index];
   }
 
   refreshData() {
@@ -78,5 +96,8 @@ export class ListLeaveComponent implements OnInit {
         console.error('Error fetching leaves:', error);
       }
     );
+  }
+  navigateToApplyLeave() {
+    this.router.navigate(['/leave/apply-leave']);
   }
 }
