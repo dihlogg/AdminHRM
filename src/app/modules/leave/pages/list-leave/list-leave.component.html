@@ -153,28 +153,24 @@
                                     <td style="width: 15%; min-width: 4rem;">{{leave.leaveStatus}}</td>
                                     <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
                                     <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
-                                    <td style="width: 10%; min-width: 4rem;">
+                                    <td style="width: 15%; min-width: 4rem;">{{leave.comment}}</td>
+                                    <td style="width: 10%; min-width: 4rem; text-align: center;">
                                         <div class="relative" appClickOutside (clickOutside)="closeDropdown(i)">
-                                            <button class="bg-blue-500 text-white px-3 py-1 rounded-md" type="button"
+                                            <button pButton pRipple type="button"
+                                                class="p-button p-component p-button-icon-only bg-gray-200 hover:bg-gray-300 rounded-full p-1.5"
                                                 (click)="toggleDropdown(i)">
-                                                Actions
-                                                <svg class="w-2.5 h-2.5 inline" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-                                                </svg>
+                                                <i class="pi pi-ellipsis-v text-gray-600"></i>
                                             </button>
                                             <div [ngClass]="{'hidden': !dropdownStates[i]}"
-                                                class="absolute right-0 mt-2 w-44 bg-white rounded-md shadow-lg z-20">
+                                                class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-20">
                                                 <ul class="py-2 text-gray-700">
                                                     <li>
                                                         <a href="pim/info-employee"
-                                                            class="block px-4 py-2 hover:bg-gray-100">View Pim Info</a>
+                                                            class="block text-sm px-4 py-1 hover:bg-gray-300">View Pim Info</a>
                                                     </li>
                                                     <li>
                                                         <a href="#"
-                                                            class="block px-4 py-2 hover:bg-gray-100">Comment</a>
+                                                            class="block text-sm px-4 py-1 hover:bg-gray-300">Comment</a>
                                                     </li>
                                                 </ul>
                                             </div>

@@ -111,7 +111,6 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('tailwind-scrollbar'),
     require('flowbite/plugin'),
-    require('flowbite/plugin'),
     'prettier-plugin-tailwindcss',
   ],
 };
