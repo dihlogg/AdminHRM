@@ -18,7 +18,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
 import { LeaveApiServiceService } from "src/app/core/services/leave/leave-api-service.service";
 import { Leave } from "src/app/core/models/leave.model";
-
+import 'flowbite';
 
 @Component({
   selector: 'app-apply-leave',
@@ -47,7 +47,8 @@ export class ApplyLeaveComponent implements OnInit {
     fromDate: new Date(),
     toDate: new Date(),
     employeeId: null,
-    subName: ''
+    subName: '',
+    comment: ''
   };
   constructor(
     private leaveService: LeaveApiServiceService, 
