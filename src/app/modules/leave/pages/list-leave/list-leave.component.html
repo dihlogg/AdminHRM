@@ -3,7 +3,8 @@
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
         <div class="md:col-span-2 mx-5 xl:col-span-3">
             <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
-                <form class="max-w-screen-xl mx-auto">
+                <form class="max-w-screen-xl mx-auto"
+                    (ngSubmit)="filteredLeaves(fromDate, toDate, leaveType, leaveStatus, employeeName, subName)">
 
                     <h2 class="text-lg">Leave List</h2>
 
@@ -25,7 +26,7 @@
                                 </div>
                                 <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Select date">
+                                    placeholder="Select date" [(ngModel)]="fromDate" (change)="onDateChange()">
                             </div>
                         </div>
 
@@ -45,7 +46,7 @@
                                 </div>
                                 <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Select date">
+                                    placeholder="Select date" [(ngModel)]="toDate" (change)="onDateChange()">
                             </div>
                         </div>
 
@@ -54,18 +55,19 @@
                             <label for="employee-status"
                                 class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Show Leave with
                                 Status</label>
-                            <select id="employee-status" name="searchEmployeeStatus"
+                            <select id="employee-status" name="searchEmployeeStatus" [(ngModel)]="leaveStatus"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option>--Select--</option>
-                                <option>Reject</option>
-                                <option>Cancel</option>
+                                <option>All Day</option>
+                                <option>Half Day - Morning</option>
+                                <option>Half Day - Afternoon</option>
                             </select>
                         </div>
 
                         <div class="relative z-0 w-full mb-5 group">
                             <label for="employee-include"
                                 class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Leave Type</label>
-                            <select id="employee-include"
+                            <select id="employee-include" [(ngModel)]="leaveType"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option>--Select--</option>
                                 <option>CAN - FMLA</option>
@@ -80,7 +82,7 @@
                                 class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Employee
                                 Name</label>
                             <input type="text" id="supervisor-full-name" placeholder="Type for hints..."
-                                name="searchEmployeeVisor"
+                                name="searchEmployeeVisor" [(ngModel)]="employeeName"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
 
@@ -88,7 +90,7 @@
                             <label for="employee-include"
                                 class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Sub
                                 Unit</label>
-                            <select id="employee-include" name="searchEmployeeUnit"
+                            <select id="employee-include" name="searchEmployeeUnit" [(ngModel)]="subName"
                                 class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option>--Select--</option>
                                 <option>Developer</option>
@@ -117,13 +119,16 @@
         <div class="md:col-span-2 mx-5 xl:col-span-3">
             <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
                 <div class="relative overflow-x-auto">
+                    <!-- Add Button -->
                     <button type="submit"
                         class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-9 py-2 text-center"
                         (click)="navigateToApplyLeave()">
-                        + Add </button>
+                        + Add
+                    </button>
 
                     <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
+                    <!-- Table -->
                     <div class="p-card p-card-custom">
                         <p-table class="rounded-lg" [value]="leaves" #dt [tableStyle]="{'min-width': '50rem'}"
                             [rowHover]="true" [filterDelay]="0" [paginator]="true" [rows]="10"
@@ -166,10 +171,11 @@
                                                 <ul class="py-2 text-gray-700">
                                                     <li>
                                                         <a href="pim/info-employee"
-                                                            class="block text-sm px-4 py-1 hover:bg-gray-300">View Pim Info</a>
+                                                            class="block text-sm px-4 py-1 hover:bg-gray-300">View Pim
+                                                            Info</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#"
+                                                        <a (click)="openModal(leave, i)"
                                                             class="block text-sm px-4 py-1 hover:bg-gray-300">Comment</a>
                                                     </li>
                                                 </ul>
@@ -179,6 +185,45 @@
                                 </tr>
                             </ng-template>
                         </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Comment -->
+        <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+            [ngClass]="{'hidden': !isModalOpen, 'flex': isModalOpen}"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 justify-center items-center w-full h-full">
+            <div class="relative top-[-9rem] p-4 w-full max-w-xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-lg font-semibold text-[#64728C] dark:text-white">Leave Request Comments</h3>
+                        <button type="button"
+                            class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="closeModal()">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-6">
+                        <form class="space-y-6">
+                            <div>
+                                <textarea id="comment" rows="4" [(ngModel)]="leaveInfo.comment" name="comment"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    placeholder="Write your comment here"></textarea>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="button"
+                                    class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-8 py-2 text-center"
+                                    (click)="submitComment()">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

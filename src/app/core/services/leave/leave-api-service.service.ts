@@ -32,4 +32,32 @@ export class LeaveApiServiceService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.delete<any>(this.leaveApiUrl + 'DeleteLeave/' + leaveId, httpOptions);
   }
+
+  searchLeaves(fromDate?: Date, toDate?: Date, leaveType?: string, leaveStatus?: string, employeeName?: string, subName?: string): Observable<any[]> {
+    let params = new HttpParams();
+    
+    if (fromDate) {
+      params = params.set('fromDate', fromDate.toISOString());
+    }
+    if (toDate) {
+      params = params.set('toDate', toDate.toISOString());
+    }
+    if (leaveType) {
+      params = params.set('leaveType', leaveType);
+    }
+    if (leaveType) {
+      params = params.set('leaveType', leaveType);
+    }
+    if (leaveStatus) {
+      params = params.set('leaveStatus', leaveStatus);
+    }
+    if (employeeName) {
+      params = params.set('employeeName', employeeName);
+    }
+    if (subName) {
+      params = params.set('subName', subName);
+    }
+  
+    return this.http.get<any[]>(this.leaveApiUrl + 'SearchLeaves', { params });
+  }
 }
