@@ -44,6 +44,17 @@ import { LeaveApiServiceService } from 'src/app/core/services/leave/leave-api-se
   providers: [MessageService, LeaveApiServiceService]
 })
 export class ListLeaveComponent implements OnInit {
+  leaveInfo: Leave = {
+    employeeName: '',
+    leaveStatus: '',
+    leaveType: '',
+    fromDate: new Date(),
+    toDate: new Date(),
+    employeeId: null,
+    subName: '',
+    comment: ''
+  };
+
   dropdownStates: boolean[] = [];
   leaves: Leave[] = [];
   selectedEmployeeId: any;
@@ -54,10 +65,13 @@ export class ListLeaveComponent implements OnInit {
   employeeName = '';
   subName = '';
   leaveStatus = '';
-  LeaveType = '';
+  leaveType = '';
+  fromDate?: Date;
+  toDate?: Date;
   totalCount: number = 0;
   pageIndex: number = 0;
   pageSize: number = 100;
+  isModalOpen = false;
 
   constructor(
     private leaveService: LeaveApiServiceService,
@@ -99,5 +113,52 @@ export class ListLeaveComponent implements OnInit {
   }
   navigateToApplyLeave() {
     this.router.navigate(['/leave/apply-leave']);
+  }
+  openModal(leave: Leave, index: number) {
+    this.leaveInfo = { ...leave }; // Sao chép dữ liệu leave
+    this.isModalOpen = true;
+  
+    // Đóng dropdown khi mở modal
+    this.closeDropdown(index);
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  submitComment() {
+    this.updateLeaveData();
+    this.closeModal();
+  }
+  
+  updateLeaveData() {
+    // Chỉ cần truyền vào trường comment
+    const updatedLeave = {
+      ...this.leaveInfo,
+      comment: this.leaveInfo.comment // Chỉ cập nhật trường comment
+    };
+  
+    this.leaveService.putLeave(updatedLeave).subscribe(
+      response => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Comment updated successfully!' });
+        this.refreshData(); // Tải lại dữ liệu sau khi cập nhật
+      },
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update Comment!' });
+      }
+    );
+  }
+
+  filteredLeaves(fromDate?: Date, toDate?: Date, leaveType?: string, leaveStatus?: string, employeeName?: string, subName?: string) {
+    if (!fromDate && !toDate && !leaveType && !leaveStatus && !employeeName && !subName) {
+      this.refreshData();
+    } else {
+      this.leaveService.searchLeaves(fromDate, toDate, leaveType, leaveStatus, employeeName, subName).subscribe(data => {
+        this.leaves = data;
+      });
+    }
+  }
+  onDateChange() {
+    this.filteredLeaves(this.fromDate, this.toDate, this.leaveType, this.leaveStatus, this.employeeName, this.subName);
   }
 }

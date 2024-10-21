@@ -88,13 +88,13 @@
           <div class="grid md:grid-cols-8 md:gap-2 justify-end">
             <div class="col-span-6"></div>
             <button type="submit"
-                            class="text-sm text-green-400 border-2 rounded-full border-green-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Cancel
-                        </button>
-                        <button type="submit"
-                            class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center">
-                            Search
-                        </button>
+              class="text-sm text-green-400 border-2 rounded-full border-green-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Cancel
+            </button>
+            <button type="submit"
+              class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center">
+              Search
+            </button>
           </div>
         </form>
       </div>
@@ -104,26 +104,17 @@
       <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
         <div class="relative overflow-x-auto">
           <button type="submit"
-          class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-9 py-2 text-center"
+            class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-9 py-2 text-center"
             (click)="navigateToAddEmployee()">
             + Add </button>
 
           <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
           <div class="p-card p-card-custom">
-            <p-table class="rounded-lg" 
-            #dt
-            [value]="employees"
-            [tableStyle]="{'min-width': '50rem'}"
-            [rowHover]="true"
-            [paginator]="true"
-            [rows]="pageSize"
-            [totalRecords]="totalRecords"
-            [showCurrentPageReport]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employees"
-            [rowsPerPageOptions]="[5,10,20,25,50]"
-            responsiveLayout="scroll"
-            (onPageChange)="onPageChange($event)">
+            <p-table class="rounded-lg" #dt [value]="employees" [tableStyle]="{'min-width': '50rem'}" [rowHover]="true"
+              [paginator]="true" [rows]="pageSize" [totalRecords]="totalRecords" [showCurrentPageReport]="true"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employees"
+              [rowsPerPageOptions]="[5,10,20,25,50]" responsiveLayout="scroll" (onPageChange)="onPageChange($event)">
               <ng-template pTemplate="header">
                 <tr>
                   <th>
@@ -230,7 +221,8 @@
                       </div>
                     </div>
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                      class="p-button p-component p-button-text p-button-icon-only" (click)="navigateToInfoEmployee(employee.id)"></button>
+                      class="p-button p-component p-button-text p-button-icon-only"
+                      (click)="navigateToInfoEmployee(employee.id)"></button>
                   </td>
                 </tr>
               </ng-template>
