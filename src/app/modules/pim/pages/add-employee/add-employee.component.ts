@@ -42,14 +42,16 @@ import { PimNavbarComponent } from "../pim-navbar/pim-navbar.component";
   providers: [MessageService]
 })
 export class AddEmployeeComponent implements OnInit {
+  showLoginDetails = false;
+  status: '--Select--' | undefined
 
   employeeInfo: Employee = {
     firstName: '',
     lastName: '',
     jobTitle: '',
     subUnitId: null,
-    status: '',
-    employeeId: null
+    status: '--Select--',
+    employeeId: null,
   };
 
   constructor(private service: EmployeeApiServiceService, 
@@ -80,6 +82,9 @@ export class AddEmployeeComponent implements OnInit {
   }
   showSuccess() {
     this.messageService.add({severity:'success', summary:'Success', detail:'Action completed!'});
+  }
+  toggleLoginDetails() {
+    this.showLoginDetails = !this.showLoginDetails;
   }
 }
 
