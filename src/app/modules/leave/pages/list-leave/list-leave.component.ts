@@ -118,7 +118,6 @@ export class ListLeaveComponent implements OnInit {
     this.leaveInfo = { ...leave }; // Sao chép dữ liệu leave
     this.isModalOpen = true;
   
-    // Đóng dropdown khi mở modal
     this.closeDropdown(index);
   }
 
@@ -132,16 +131,15 @@ export class ListLeaveComponent implements OnInit {
   }
   
   updateLeaveData() {
-    // Chỉ cần truyền vào trường comment
     const updatedLeave = {
       ...this.leaveInfo,
-      comment: this.leaveInfo.comment // Chỉ cập nhật trường comment
+      comment: this.leaveInfo.comment
     };
   
     this.leaveService.putLeave(updatedLeave).subscribe(
       response => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Comment updated successfully!' });
-        this.refreshData(); // Tải lại dữ liệu sau khi cập nhật
+        this.refreshData(); 
       },
       error => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update Comment!' });

@@ -13,11 +13,13 @@ export class AuthenticationApiServiceService {
   constructor(private http: HttpClient) { }
 
   login(userName: string, password: string): Observable<void> {
-    return this.http.post(`${this.authApiUrl}login`, { userName, password }, { responseType: 'text' })
+    return this.http.post<any>(`${this.authApiUrl}login`, { userName, password })
       .pipe(
-        map((token: string) => {
+        map(response => {
+          const { token, employee } = response;
           console.log('Token received:', token);
           localStorage.setItem('token', token);
+          localStorage.setItem('employee', JSON.stringify(employee)); // Lưu Employee vào localStorage
         })
       );
   }
