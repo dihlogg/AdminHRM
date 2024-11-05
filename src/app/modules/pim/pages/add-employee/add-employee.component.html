@@ -59,13 +59,14 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                                 <div class="relative z-0 w-full mb-5 group">
-                                    <label for="employee-status" class="block mb-2 font-medium text-gray-900 dark:text-white text-sm">
+                                    <label for="employee-status"
+                                        class="block mb-2 font-medium text-gray-900 dark:text-white text-sm">
                                         Employment Status
                                     </label>
                                     <select id="employee-status" name="searchEmployeeStatus"
                                         [(ngModel)]="employeeInfo.status" name="status" required
                                         class="text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option value="--Select--">--Select--</option>  <!-- Set value here -->
+                                        <option value="--Select--">--Select--</option> <!-- Set value here -->
                                         <option value="Full Time">Full Time</option>
                                         <option value="Part Time">Part Time</option>
                                     </select>
@@ -77,41 +78,53 @@
                                     <span class="text-bg-blue-700 white">Create Login Details</span>
                                     <label class="inline-flex items-center cursor-pointer">
                                         <input type="checkbox" class="sr-only peer" (click)="toggleLoginDetails()">
-                                        <div class="relative w-9 h-5 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-orange-500">
+                                        <div
+                                            class="relative w-9 h-5 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-orange-500">
                                         </div>
                                     </label>
                                 </div>
-                            
+
                                 <!-- Show the div based on showLoginDetails state -->
                                 <div *ngIf="showLoginDetails" class="grid md:grid-cols-2 md:gap-4 mt-2">
                                     <div class="relative z-0 w-full mb-5 group">
-                                        <label for="user-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Name*</label>
-                                        <input type="text" id="user-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                                        <label for="user-name"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User
+                                            Name*</label>
+                                        <input type="text" id="user-name" placeholder="User Name"
+                                            [(ngModel)]="employeeInfo.userName" name="userName" required
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                                     </div>
-                            
+
                                     <div class="relative z-0 w-full mb-5 group">
-                                        <label for="gmail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gmail*</label>
-                                        <input type="text" id="gmail" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                                        <label for="gmail"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gmail*</label>
+                                        <input type="text" id="gmail" placeholder="Gmail"
+                                            [(ngModel)]="employeeInfo.email" name="email" required
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                                     </div>
                                 </div>
 
-                                <div *ngIf="showLoginDetails" class="grid md:grid-cols-2 md:gap-4 bg-gray-100 p-2 rounded-lg">
+                                <div *ngIf="showLoginDetails"
+                                    class="grid md:grid-cols-2 md:gap-4 bg-gray-100 p-2 rounded-lg">
                                     <div class="relative z-0 w-full mb-5 group">
                                         <label for="password"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password*</label>
-                                        <input type="text" id="password" value=""
+                                        <input type="text" id="password" value="" [(ngModel)]="employeeInfo.password"
+                                            name="password" required
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <span class="text-xs">
-                                            For a strong password, please use a hard to guess combination of text with upper
+                                            For a strong password, please use a hard to guess combination of text with
+                                            upper
                                             and lower case characters, symbols and numbers
                                         </span>
                                     </div>
-    
+
                                     <div class="relative z-0 w-full mb-5 group">
-                                        <label for="comfirm-password"
+                                        <label for="confirm-password"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
                                             Password*</label>
-                                        <input type="text" id="comfirm-password" value=""
+                                        <input type="text" id="confirm-password" value="" [(ngModel)]="confirmPassword"
+                                            name="confirmPassword"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     </div>
                                 </div>

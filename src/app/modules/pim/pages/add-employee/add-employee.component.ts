@@ -43,7 +43,8 @@ import { PimNavbarComponent } from "../pim-navbar/pim-navbar.component";
 })
 export class AddEmployeeComponent implements OnInit {
   showLoginDetails = false;
-  status: '--Select--' | undefined
+  status: '--Select--' | undefined;
+  confirmPassword?: String = '';
 
   employeeInfo: Employee = {
     firstName: '',
@@ -52,6 +53,9 @@ export class AddEmployeeComponent implements OnInit {
     subUnitId: null,
     status: '--Select--',
     employeeId: null,
+    userName: '',
+    email: '',
+    password: '',
   };
 
   constructor(private service: EmployeeApiServiceService, 
@@ -60,14 +64,44 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  createEmployee() {
-    this.service.postEmployee(this.employeeInfo).subscribe(response => {
-      console.log('Employee created successfully', response);
-    }, error => {
-      console.error('Error creating employee', error);
-    });
-  }
   addEmployee(employeeData: any) {
+
+    let employeeToSubmit = { ...employeeData };
+
+    // Validate required fields
+    if (!employeeToSubmit.firstName || !employeeToSubmit.lastName || 
+      !employeeToSubmit.jobTitle || !employeeToSubmit.status || 
+      employeeToSubmit.status === '--Select--') {
+    this.messageService.add({
+      severity: 'error', summary: 'Error', detail: 'Please fill in all required fields!'
+    });
+    return;
+  }
+
+  // If login details are not shown, remove those fields from submission
+  if (!this.showLoginDetails) {
+    delete employeeToSubmit.userName;
+    delete employeeToSubmit.email;
+    delete employeeToSubmit.password;
+  } else {
+    // Validate login details if they are shown
+    if (!employeeToSubmit.userName || !employeeToSubmit.email || 
+        !employeeToSubmit.password) {
+      this.messageService.add({
+        severity: 'error', summary: 'Error', detail: 'Please fill in all login details!'
+      });
+      return;
+    }
+  }
+
+    // Validate pass & confirm password before calling the API
+    if(employeeData.password && this.confirmPassword) {
+      if (employeeData.password !== this.confirmPassword) {
+        this.messageService.add({severity:'error', summary:'Error', detail:'Passwords do not match!'});
+        return;
+      }
+    }
+
     this.service.postEmployee(employeeData).subscribe(
       (response) => {
         this.messageService.add({severity:'success', summary:'Success', detail:'Employee added successfully!'});
