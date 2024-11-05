@@ -6,6 +6,9 @@ export interface Employee {
     status: string;
     employeeId: string | null;
     subUnitId: string | null;
+    userName?: string;
+    email?: string;
+    password?: string;
     subUnitName?: string;
     supervisor?: Supervisor;
     employeeChildren?: EmployeeChildren[];
