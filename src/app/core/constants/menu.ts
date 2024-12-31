@@ -16,6 +16,11 @@ export class Menu {
           ],
         },
         {
+          icon: 'assets/icons/heroicons/outline/ServerStack.svg',
+          label: 'Admin',
+          route: '/admin',
+        },
+        {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'Pim',
           route: '/pim',
