@@ -19,6 +19,11 @@ const routes: Routes = [
     component: LayoutComponent,
     loadChildren: () => import('../leave/leave.module').then((m) => m.LeaveModule),
   },
+  {
+    path: 'admin',
+    component: LayoutComponent,
+    loadChildren: () => import('../admin/admin.module').then((m) => m.AdminModule),
+  },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'error/404' },
 ];

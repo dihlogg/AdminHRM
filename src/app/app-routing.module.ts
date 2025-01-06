@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/leave/leave.module').then((m) => m.LeaveModule),
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./modules/admin/admin.module').then((m) => m.AdminModule),
+  },
+  {
     path: 'errors',
     loadChildren: () => import('./modules/error/error.module').then((m) => m.ErrorModule),
   },
