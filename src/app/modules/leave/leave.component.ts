@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../layout/components/navbar/navbar.component";
 import { LeaveNavbarComponent } from "./pages/leave-navbar/leave-navbar.component";
 

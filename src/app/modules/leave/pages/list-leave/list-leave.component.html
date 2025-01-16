@@ -3,227 +3,67 @@
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-">
         <div class="md:col-span-2 mx-5 xl:col-span-3">
             <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
-                <form class="max-w-screen-xl mx-auto"
-                    (ngSubmit)="filteredLeaves(fromDate, toDate, leaveType, leaveStatus, employeeName, subName)">
+                <form class="max-w-screen-xl mx-auto">
 
-                    <h2 class="text-lg">Leave List</h2>
+                    <h2 class="text-lg">Working Time</h2>
 
-                    <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+                    <hr class="max-w-7xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
 
                     <div class="grid md:grid-cols-4 md:gap-6">
-                        <div class="relative z-0 w-full mb-5 group">
-                            <label for="date-range-picker"
-                                class="block mb-2 font-medium text-xs text-gray-700 dark:text-white">From
-                                Date</label>
-
-                            <div class="relative max-w-sm">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                        <div class="w-72 h-24 p-4 border rounded-lg shadow-sm bg-gray-50 flex items-center"
+                            *ngFor="let card of leaveCards" (click)="loadCardItems(card.type_id)">
+                            <div class="space-y-2 w-full">
+                                <div class="text-4xl font-bold text-gray-800">{{ card.total }}</div>
+                                <div class="flex justify-start text-xs text-gray-500 truncate">
+                                    {{ card.type_name || 'No type name available' }}
+                                </div>
+                            </div>
+                            <div class="flex justify-end w-full">
+                                <div
+                                    class="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Select date" [(ngModel)]="fromDate" (change)="onDateChange()">
                             </div>
                         </div>
-
-
-                        <div class="relative z-0 w-full mb-5 group">
-                            <label for="date-range-picker"
-                                class="block mb-2 font-medium text-xs text-gray-700 dark:text-white">To
-                                Date</label>
-
-                            <div class="relative max-w-sm">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                    </svg>
-                                </div>
-                                <input id="datepicker-autohide" datepicker datepicker-autohide type="text"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Select date" [(ngModel)]="toDate" (change)="onDateChange()">
-                            </div>
-                        </div>
-
-
-                        <div class="relative z-0 w-full mb-5 group">
-                            <label for="employee-status"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Show Leave with
-                                Status</label>
-                            <select id="employee-status" name="searchEmployeeStatus" [(ngModel)]="leaveStatus"
-                                class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option>--Select--</option>
-                                <option>All Day</option>
-                                <option>Half Day - Morning</option>
-                                <option>Half Day - Afternoon</option>
-                            </select>
-                        </div>
-
-                        <div class="relative z-0 w-full mb-5 group">
-                            <label for="employee-include"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Leave Type</label>
-                            <select id="employee-include" [(ngModel)]="leaveType"
-                                class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option>--Select--</option>
-                                <option>CAN - FMLA</option>
-                                <option>CAN - Personal</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-3 md:gap-6">
-                        <div class="relative z-0 w-full mb-5 group">
-                            <label for="supervisor-full-name"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Employee
-                                Name</label>
-                            <input type="text" id="supervisor-full-name" placeholder="Type for hints..."
-                                name="searchEmployeeVisor" [(ngModel)]="employeeName"
-                                class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        </div>
-
-                        <div class="relative z-0 w-full mb-5 group">
-                            <label for="employee-include"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white text-xs">Sub
-                                Unit</label>
-                            <select id="employee-include" name="searchEmployeeUnit" [(ngModel)]="subName"
-                                class="text-xs bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option>--Select--</option>
-                                <option>Developer</option>
-                                <option>Tester</option>
-                                <option>Project Manager (PM)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-8 md:gap-2 justify-end">
-                        <div class="col-span-6"></div>
-                        <button type="submit"
-                            class="text-sm text-green-400 border-2 rounded-full border-green-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Cancel
-                        </button>
-                        <button type="submit"
-                            class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-2 py-1.5 text-center">
-                            Search
-                        </button>
                     </div>
                 </form>
             </div>
         </div>
 
-
         <div class="md:col-span-2 mx-5 xl:col-span-3">
             <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
                 <div class="relative overflow-x-auto">
-                    <!-- Add Button -->
-                    <button type="submit"
-                        class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-9 py-2 text-center"
-                        (click)="navigateToApplyLeave()">
-                        + Add
-                    </button>
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-500">My Abnormal Cases</h2>
+                    </div>
 
-                    <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600">
+                    <hr class="w-2xl h-px mx-auto my-3 bg-gray-300 border-0 rounded md:my-3 dark:bg-gray-600" />
 
-                    <!-- Table -->
-                    <div class="p-card p-card-custom">
-                        <p-table class="rounded-lg" [value]="leaves" #dt [tableStyle]="{'min-width': '50rem'}"
-                            [rowHover]="true" [filterDelay]="0" [paginator]="true" [rows]="10"
-                            [totalRecords]="totalRecords" sortMode="multiple" [showCurrentPageReport]="true"
-                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Employee"
-                            responsiveLayout="scroll">
+                    <div *ngIf="cardItems && cardItems.items.length > 0">
+                        <p-table [value]="cardItems.items" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th>Date</th>
-                                    <th>Employee Name</th>
-                                    <th>Leave Type</th>
-                                    <th>Leave Status</th>
-                                    <th>Number Of Days</th>
-                                    <th>Leave Balance(Days)</th>
-                                    <th>Comment</th>
-                                    <th>Actions</th>
+                                    <th>Abnormal Type</th>
+                                    <th>Request Type</th>
+                                    <th>Request Status</th>
+                                    <th>Partial Days</th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-leave let-i="rowIndex">
+                            <ng-template pTemplate="body" let-item>
                                 <tr>
-                                    <td style="width: 15%; min-width: 4rem;">
-                                        {{ leave.fromDate | date:'yyyy-dd-MM' }} to {{ leave.toDate | date:'yyyy-dd-MM'
-                                        }}
-                                    </td>
-                                    <td style="width: 15%; min-width: 4rem;">{{leave.employeeName}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{leave.leaveType}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{leave.leaveStatus}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{leave.subname}}</td>
-                                    <td style="width: 15%; min-width: 4rem;">{{leave.comment}}</td>
-                                    <td style="width: 10%; min-width: 4rem; text-align: center;">
-                                        <div class="relative" appClickOutside (clickOutside)="closeDropdown(i)">
-                                            <button pButton pRipple type="button"
-                                                class="p-button p-component p-button-icon-only bg-gray-200 hover:bg-gray-300 rounded-full p-1.5"
-                                                (click)="toggleDropdown(i)">
-                                                <i class="pi pi-ellipsis-v text-gray-600"></i>
-                                            </button>
-                                            <div [ngClass]="{'hidden': !dropdownStates[i]}"
-                                                class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-20">
-                                                <ul class="py-2 text-gray-700">
-                                                    <li>
-                                                        <a href="pim/info-employee"
-                                                            class="block text-sm px-4 py-1 hover:bg-gray-300">View Pim
-                                                            Info</a>
-                                                    </li>
-                                                    <li>
-                                                        <a (click)="openModal(leave, i)"
-                                                            class="block text-sm px-4 py-1 hover:bg-gray-300">Comment</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td>{{ item.date | date: 'yyyy-MM-dd' }}</td>
+                                    <td>{{ item.abnormal_type }}</td>
+                                    <td>{{ item.request_type }}</td>
+                                    <td>{{ item.request_status }}</td>
+                                    <td>{{ item.partial_day }}</td>
                                 </tr>
                             </ng-template>
                         </p-table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal for Comment -->
-        <div id="authentication-modal" tabindex="-1" aria-hidden="true"
-            [ngClass]="{'hidden': !isModalOpen, 'flex': isModalOpen}"
-            class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 justify-center items-center w-full h-full">
-            <div class="relative top-[-9rem] p-4 w-full max-w-xl max-h-full">
-                <!-- Modal content -->
-                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                        <h3 class="text-lg font-semibold text-[#64728C] dark:text-white">Leave Request Comments</h3>
-                        <button type="button"
-                            class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            (click)="closeModal()">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="p-6">
-                        <form class="space-y-6">
-                            <div>
-                                <textarea id="comment" rows="4" [(ngModel)]="leaveInfo.comment" name="comment"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                    placeholder="Write your comment here"></textarea>
-                            </div>
-                            <div class="flex justify-end">
-                                <button type="button"
-                                    class="text-sm text-white rounded-full bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium w-full sm:w-auto px-8 py-2 text-center"
-                                    (click)="submitComment()">Submit</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
