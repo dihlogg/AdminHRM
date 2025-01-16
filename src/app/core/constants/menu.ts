@@ -12,7 +12,6 @@ export class Menu {
           route: '/dashboard',
           children: [
             { label: 'Nfts', route: '/dashboard/nfts' },
-            // { label: 'Podcast', route: '/dashboard/podcast' },
           ],
         },
         {
@@ -37,15 +36,6 @@ export class Menu {
             { label: 'Two Steps', route: '/auth/two-steps' },
           ],
         },
-        // {
-        //   icon: 'assets/icons/heroicons/outline/shield-exclamation.svg',
-        //   label: 'Erros',
-        //   route: '/errors',
-        //   children: [
-        //     { label: '404', route: '/errors/404' },
-        //     { label: '500', route: '/errors/500' },
-        //   ],
-        // },
         {
           icon: 'assets/icons/heroicons/outline/dots-horizontal.svg',
           label: 'Leave',

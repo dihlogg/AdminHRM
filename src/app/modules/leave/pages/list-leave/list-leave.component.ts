@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
@@ -16,8 +16,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { LeaveNavbarComponent } from "../leave-navbar/leave-navbar.component";
-import { Leave } from 'src/app/core/models/leave.model';
+import { LeaveCard, LeaveCardItems } from 'src/app/core/models/leave.model';
 import { LeaveApiServiceService } from 'src/app/core/services/leave/leave-api-service.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-list-leave',
@@ -44,34 +45,9 @@ import { LeaveApiServiceService } from 'src/app/core/services/leave/leave-api-se
   providers: [MessageService, LeaveApiServiceService]
 })
 export class ListLeaveComponent implements OnInit {
-  leaveInfo: Leave = {
-    employeeName: '',
-    leaveStatus: '',
-    leaveType: '',
-    fromDate: new Date(),
-    toDate: new Date(),
-    employeeId: null,
-    subName: '',
-    comment: ''
-  };
-
-  dropdownStates: boolean[] = [];
-  leaves: Leave[] = [];
-  selectedEmployeeId: any;
-  subUnits: SubUnit[] = [];
-  first: number = 0;
-  row: number = 5;
-  totalRecords: number = 0;
-  employeeName = '';
-  subName = '';
-  leaveStatus = '';
-  leaveType = '';
-  fromDate?: Date;
-  toDate?: Date;
-  totalCount: number = 0;
-  pageIndex: number = 0;
-  pageSize: number = 100;
-  isModalOpen = false;
+  leaveCards: LeaveCard[] = [];
+  cardItems: LeaveCardItems | null = null;
+  selectedCardId: string | null = null;
 
   constructor(
     private leaveService: LeaveApiServiceService,
@@ -80,83 +56,38 @@ export class ListLeaveComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.refreshData();
+    this.loadLeaveCards();
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (!target.closest('.relative')) {
-      // Close all dropdowns if clicking outside of the dropdown
-      this.dropdownStates.fill(false);
-    }
-  }
+  loadLeaveCards(): void {
+    this.leaveService.getLeaveCards().subscribe(
+      (cards: LeaveCard[]) => {
+        this.leaveCards = cards;
+        console.log('Leave Cards:', this.leaveCards);
 
-  closeDropdown(index: number): void {
-    this.dropdownStates[index] = false;
-  }
-
-  toggleDropdown(index: number): void {
-    this.dropdownStates[index] = !this.dropdownStates[index];
-  }
-
-  refreshData() {
-    this.leaveService.getLeaves().subscribe(
-      (data) => {
-        this.leaves = data;
-        console.log('Fetched leaves:', this.leaves);
+        const defaultCard = this.leaveCards.find(card => card.display_order === 1);
+        if (defaultCard) {
+          this.selectedCardId = defaultCard.type_id;
+          this.loadCardItems(defaultCard.type_id);
+        }
       },
       (error) => {
-        console.error('Error fetching leaves:', error);
+        console.error('Error fetching leave cards:', error);
       }
     );
   }
-  navigateToApplyLeave() {
-    this.router.navigate(['/leave/apply-leave']);
-  }
-  openModal(leave: Leave, index: number) {
-    this.leaveInfo = { ...leave }; // Sao chép dữ liệu leave
-    this.isModalOpen = true;
-  
-    this.closeDropdown(index);
-  }
 
-  closeModal() {
-    this.isModalOpen = false;
-  }
+  loadCardItems(cardId: string): void {
+    this.selectedCardId = cardId;
 
-  submitComment() {
-    this.updateLeaveData();
-    this.closeModal();
-  }
-  
-  updateLeaveData() {
-    const updatedLeave = {
-      ...this.leaveInfo,
-      comment: this.leaveInfo.comment
-    };
-  
-    this.leaveService.putLeave(updatedLeave).subscribe(
-      response => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Comment updated successfully!' });
-        this.refreshData(); 
+    this.leaveService.getLeaveCardItems(cardId).subscribe(
+      (data: LeaveCardItems) => {
+        this.cardItems = data;
+        console.log('Card Items:', this.cardItems);
       },
-      error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update Comment!' });
+      (error) => {
+        console.error('Error fetching card items:', error);
       }
     );
-  }
-
-  filteredLeaves(fromDate?: Date, toDate?: Date, leaveType?: string, leaveStatus?: string, employeeName?: string, subName?: string) {
-    if (!fromDate && !toDate && !leaveType && !leaveStatus && !employeeName && !subName) {
-      this.refreshData();
-    } else {
-      this.leaveService.searchLeaves(fromDate, toDate, leaveType, leaveStatus, employeeName, subName).subscribe(data => {
-        this.leaves = data;
-      });
-    }
-  }
-  onDateChange() {
-    this.filteredLeaves(this.fromDate, this.toDate, this.leaveType, this.leaveStatus, this.employeeName, this.subName);
   }
 }

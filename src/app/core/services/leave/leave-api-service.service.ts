@@ -9,7 +9,7 @@ import { Employee } from '../../models/employee.model';
 })
 export class LeaveApiServiceService {
 
-  readonly leaveApiUrl = 'http://localhost:5194/Leave/';
+  readonly leaveApiUrl = 'http://localhost:7017/Leave/';
 
   constructor(private http: HttpClient) { }
 
@@ -59,5 +59,12 @@ export class LeaveApiServiceService {
     }
   
     return this.http.get<any[]>(this.leaveApiUrl + 'SearchLeaves', { params });
+  }
+  getLeaveCards(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/dashboard/cards');
+  }
+  getLeaveCardItems(typeId: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get<any>(this.leaveApiUrl + 'v1/dashboard/cards/' + typeId, httpOptions);
   }
 }
