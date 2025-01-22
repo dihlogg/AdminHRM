@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PagedResult } from '../../models/paged-result.model';
 import { Employee } from '../../models/employee.model';
+import { MyLeave } from '../../models/leave.model';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +67,14 @@ export class LeaveApiServiceService {
   getLeaveCardItems(typeId: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.get<any>(this.leaveApiUrl + 'v1/dashboard/cards/' + typeId, httpOptions);
+  }
+  getRequestStatus(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/statuses');
+  }
+  getRequestTypes(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/requesttypes');
+  }
+  GetMyRequest(): Observable<MyLeave> {
+    return this.http.get<MyLeave>(this.leaveApiUrl + 'v1/myrequest');
   }
 }
