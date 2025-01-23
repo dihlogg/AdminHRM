@@ -77,11 +77,32 @@ export interface RequestInformTo {
   user_id: string;
   user_name: string;
 }
+export interface Requester {
+  user_id: string;
+  user_name: string;
+}
 export interface RequestTimeAndBalance {
   requestName: string;
   unit: string;
-  maximumAllowed: number,
-  approvedQuotas: number,
-  remainingQuotas: number,
+  maximumAllowed: number;
+  approvedQuotas: number;
+  remainingQuotas: number;
   pendingQuotas: number;
+}
+export interface ReceiveRequest {
+  total_count: number;
+  page_index: number;
+  page_size: number;
+  items: {
+    requester: string
+    request_type_name: string;
+    time_from: string;
+    time_to: string;
+    time_request: string;
+    partial_days: string;
+    duration: number;
+    status: string;
+    delegate_by: string;
+    delegate_to: string;
+  }[];
 }
