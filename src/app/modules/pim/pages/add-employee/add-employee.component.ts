@@ -68,7 +68,6 @@ export class AddEmployeeComponent implements OnInit {
 
     let employeeToSubmit = { ...employeeData };
 
-    // Validate required fields
     if (!employeeToSubmit.firstName || !employeeToSubmit.lastName || 
       !employeeToSubmit.jobTitle || !employeeToSubmit.status || 
       employeeToSubmit.status === '--Select--') {
@@ -78,13 +77,11 @@ export class AddEmployeeComponent implements OnInit {
     return;
   }
 
-  // If login details are not shown, remove those fields from submission
   if (!this.showLoginDetails) {
     delete employeeToSubmit.userName;
     delete employeeToSubmit.email;
     delete employeeToSubmit.password;
   } else {
-    // Validate login details if they are shown
     if (!employeeToSubmit.userName || !employeeToSubmit.email || 
         !employeeToSubmit.password) {
       this.messageService.add({
@@ -94,7 +91,6 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
 
-    // Validate pass & confirm password before calling the API
     if(employeeData.password && this.confirmPassword) {
       if (employeeData.password !== this.confirmPassword) {
         this.messageService.add({severity:'error', summary:'Error', detail:'Passwords do not match!'});

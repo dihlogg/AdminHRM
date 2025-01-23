@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LeaveNavbarComponent } from "../leave-navbar/leave-navbar.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,15 +10,15 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Employee, Supervisor } from 'src/app/core/models/employee.model';
-import { EmployeeApiServiceService } from 'src/app/core/services/employee/employee-api-service.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SubUnit } from 'src/app/core/models/subUnit.model';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLeave, RequestStatus, RequestType } from 'src/app/core/models/leave.model';
 import { LeaveApiServiceService } from 'src/app/core/services/leave/leave-api-service.service';
+import { DialogModule } from 'primeng/dialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { TimeOffPopupComponent } from '../time-off-popup/time-off-popup.component';
 
 
 @Component({
@@ -37,7 +37,10 @@ import { LeaveApiServiceService } from 'src/app/core/services/leave/leave-api-se
     PaginatorModule,
     RouterLink,
     InputTextModule,
-    HttpClientModule
+    HttpClientModule,
+    DialogModule,
+    TooltipModule,
+    TimeOffPopupComponent
   ],
   providers: [MessageService, LeaveApiServiceService],
   templateUrl: './my-leave.component.html',
@@ -47,10 +50,11 @@ export class MyLeaveComponent implements OnInit {
   requestType: RequestType[] = [];
   requestStatus: RequestStatus[] = [];
   myRequest: MyLeave | null = null;
+  @Input() displayPopup!: boolean;
 
   constructor(
-    private leaveService : LeaveApiServiceService,
-  ) {}
+    private leaveService: LeaveApiServiceService,
+  ) { }
 
   ngOnInit(): void {
     this.loadMyRequest();
@@ -69,10 +73,10 @@ export class MyLeaveComponent implements OnInit {
       }
     );
   }
-  
 
-  loadRequestType() : void {
-    this.leaveService.getRequestTypes().subscribe (
+
+  loadRequestType(): void {
+    this.leaveService.getRequestTypes().subscribe(
       (types: RequestType[]) => {
         this.requestType = types;
         console.log('Request Type:', this.requestType);
@@ -83,8 +87,8 @@ export class MyLeaveComponent implements OnInit {
     )
   }
 
-  loadRequestStatus() : void {
-    this.leaveService.getRequestStatus().subscribe (
+  loadRequestStatus(): void {
+    this.leaveService.getRequestStatus().subscribe(
       (statuses: RequestStatus[]) => {
         this.requestStatus = statuses;
         console.log('Request Status:', this.requestStatus);
@@ -93,5 +97,9 @@ export class MyLeaveComponent implements OnInit {
         console.log('Error request status', error)
       }
     )
+  }
+  showPopup(): void {
+    this.displayPopup = true; // Mở popup
+    console.log('Popup state:', this.displayPopup);
   }
 }

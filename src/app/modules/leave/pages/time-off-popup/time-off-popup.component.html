@@ -1,0 +1,29 @@
+ <ng-template pTemplate="header">
+    <div class="text-base font-normal">Time Off (Leave) Requests and Balances</div>
+  </ng-template>
+
+  <div class="overflow-x-auto">
+    <table class="w-full">
+        <thead>
+          <tr class="border-b bg-gray-50">
+            <th class="p-3 text-left font-normal text-gray-600">Request Name</th>
+            <th class="p-3 text-left font-normal text-gray-600">Unit</th>
+            <th class="p-3 text-left font-normal text-gray-600">Maximum Allowed</th>
+            <th class="p-3 text-left font-normal text-gray-600">Approved Quotas</th>
+            <th class="p-3 text-left font-normal text-gray-600">Remaining Quotas</th>
+            <th class="p-3 text-left font-normal text-gray-600">Pending Quotas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of requestBalances" class="border-b hover:bg-gray-50">
+            <td class="p-3">{{ item.requestName }}</td>
+            <td class="p-3">{{ item.unit }}</td>
+            <td class="p-3">{{ item.maximumAllowed }}</td>
+            <td class="p-3">{{ item.approvedQuotas }}</td>
+            <td class="p-3">{{ item.remainingQuotas }}</td>
+            <td class="p-3">{{ item.pendingQuotas }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
