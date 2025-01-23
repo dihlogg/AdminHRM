@@ -7,6 +7,13 @@ import { MenuItem } from 'primeng/api';
 export class LeaveMenuService {
   public leaveMenu: MenuItem[] = [
     {
+      label: 'Leave Dashboard',
+      routerLink: '/leave/list-leave',
+      group: 'Leave Dashboard',
+      active: false,
+      selected: false,
+    },
+    {
       label: 'My Leave',
       routerLink: '/leave/my-leave',
       group: 'My Leave',
@@ -21,9 +28,9 @@ export class LeaveMenuService {
       selected: false,
     },
     {
-      label: 'Leave Dashboard',
-      routerLink: '/leave/list-leave',
-      group: 'Leave Dashboard',
+      label: 'Receive Leave',
+      routerLink: '/leave/receive-leave',
+      group: 'Receive Leave',
       active: false,
       selected: false,
     },

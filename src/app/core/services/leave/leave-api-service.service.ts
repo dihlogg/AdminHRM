@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PagedResult } from '../../models/paged-result.model';
 import { Employee } from '../../models/employee.model';
-import { MyLeave } from '../../models/leave.model';
+import { MyLeave, ReceiveRequest } from '../../models/leave.model';
 
 @Injectable({
   providedIn: 'root'
@@ -89,10 +89,16 @@ export class LeaveApiServiceService {
   getRequestInformTo(): Observable<any[]> {
     return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/informto');
   }
+  getRequester(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/requesters');
+  }
   getRequestTimeAndBalanace(): Observable<any[]> {
     return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/requestTimeAdnBalances');
   }
   GetMyRequest(): Observable<MyLeave> {
     return this.http.get<MyLeave>(this.leaveApiUrl + 'v1/myrequest');
+  }
+  getReceiveRequests(): Observable<ReceiveRequest> {
+    return this.http.get<ReceiveRequest>(this.leaveApiUrl + 'v1/receiverequest');
   }
 }
