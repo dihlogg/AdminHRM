@@ -55,3 +55,33 @@ export interface RequestStatus {
   status_name: string;
   display_order: number;
 }
+export interface RequestPartial {
+  partial_id: string;
+  partial_name: string;
+  display_order: number;
+}
+export interface RequestReason {
+  reason_id: string;
+  reason_name: string;
+  display_order: number;
+}
+export interface RequestApprovers {
+  user_id: string;
+  user_name: string;
+}
+export interface RequestSuppervisors {
+  user_id: string;
+  user_name: string;
+}
+export interface RequestInformTo {
+  user_id: string;
+  user_name: string;
+}
+export interface RequestTimeAndBalance {
+  requestName: string;
+  unit: string;
+  maximumAllowed: number,
+  approvedQuotas: number,
+  remainingQuotas: number,
+  pendingQuotas: number;
+}

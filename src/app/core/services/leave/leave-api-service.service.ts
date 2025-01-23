@@ -74,6 +74,24 @@ export class LeaveApiServiceService {
   getRequestTypes(): Observable<any[]> {
     return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/requesttypes');
   }
+  getRequestPartials(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/partialdays');
+  }
+  getRequestReasons(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/reasons');
+  }
+  getRequestApprovers(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/approver');
+  }
+  getRequestSuppervisors(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/suppervisors');
+  }
+  getRequestInformTo(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/informto');
+  }
+  getRequestTimeAndBalanace(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'v1/categories/requestTimeAdnBalances');
+  }
   GetMyRequest(): Observable<MyLeave> {
     return this.http.get<MyLeave>(this.leaveApiUrl + 'v1/myrequest');
   }

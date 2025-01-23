@@ -1,5 +1,5 @@
 import { LeaveNavbarComponent } from "../leave-navbar/leave-navbar.component";
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
@@ -10,20 +10,19 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Employee, Supervisor } from 'src/app/core/models/employee.model';
-import { EmployeeApiServiceService } from 'src/app/core/services/employee/employee-api-service.service';
-import { HttpClient } from '@angular/common/http';
-import { SubUnit } from 'src/app/core/models/subUnit.model';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PaginatorModule } from 'primeng/paginator';
 import { LeaveApiServiceService } from "src/app/core/services/leave/leave-api-service.service";
-import { Leave } from "src/app/core/models/leave.model";
-import 'flowbite';
+import { Leave, RequestApprovers, RequestInformTo, RequestPartial, RequestReason, RequestStatus, RequestSuppervisors, RequestTimeAndBalance, RequestType } from "src/app/core/models/leave.model";
+import { HttpClientModule } from "@angular/common/http";
+import { DialogModule } from 'primeng/dialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { TimeOffPopupComponent } from "../time-off-popup/time-off-popup.component";
 
 @Component({
   selector: 'app-apply-leave',
   standalone: true,
-  imports: [LeaveNavbarComponent, 
+  imports: [LeaveNavbarComponent,
     CommonModule,
     FormsModule,
     RouterOutlet,
@@ -34,65 +33,138 @@ import 'flowbite';
     PanelMenuModule,
     ToggleButtonModule,
     PaginatorModule,
-    RouterLink],
+    RouterLink,
+    HttpClientModule,
+    DialogModule,
+    TooltipModule,
+    TimeOffPopupComponent],
   templateUrl: './apply-leave.component.html',
   styleUrl: './apply-leave.component.scss',
   providers: [MessageService, LeaveApiServiceService]
 })
 export class ApplyLeaveComponent implements OnInit {
-  leaveInfo: Leave = {
-    employeeName: '',
-    leaveStatus: '',
-    leaveType: '',
-    fromDate: new Date(),
-    toDate: new Date(),
-    employeeId: null,
-    subName: '',
-    comment: ''
-  };
+  requestType: RequestType[] = [];
+  requestStatus: RequestStatus[] = [];
+  requestPartial: RequestPartial[] = [];
+  requestReason: RequestReason[] = [];
+  requestApprover: RequestApprovers[] = [];
+  requestSuppervisor: RequestSuppervisors[] = [];
+  requestInformTo: RequestInformTo[] = [];
+  requestBalances: RequestTimeAndBalance[] = [];
+  @Input() displayPopup!: boolean;
+
   constructor(
-    private leaveService: LeaveApiServiceService, 
-    private router: Router,
-    private messageService: MessageService
-  ) {
+    private leaveService: LeaveApiServiceService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.loadRequestType();
+    this.loadRequestStatus();
+    this.loadRequestReason();
+    this.loadRequestPartials();
+    this.loadApprover();
+    this.loadInformTo();
+    this.loadSuppervisor();
   }
 
-  ngOnInit(): void {}
-
-  openFromDatePicker() {
-    const fromDateInput = document.getElementById('fromDate') as HTMLInputElement;
-    fromDateInput?.focus();
-  }
-
-  openToDatePicker() {
-    const toDateInput = document.getElementById('toDate') as HTMLInputElement;
-    toDateInput?.focus();
-  }
-
-  createNewLeave() {
-    this.leaveService.postLeave(this.leaveInfo).subscribe(response => {
-      console.log('Create new leave successfully', response);
-    }, error => {
-      console.log('Create new leave error', error);
-    });
-  }
-
-  addNewLeave(leaveDate: any) {
-    this.leaveService.postLeave(leaveDate).subscribe(
-      (response) => {
-        this.messageService.add({severity:'success', summary:'Success', detail:'Create new leave successfully!!'});
-        setTimeout(() => {
-          this.router.navigate(['/leave/list-leave']);
-        }, 1000);
+  loadRequestType(): void {
+    this.leaveService.getRequestTypes().subscribe(
+      (types: RequestType[]) => {
+        this.requestType = types;
+        console.log('Request Type:', this.requestType);
       },
       (error) => {
-        this.messageService.add({severity:'error', summary:'Error', detail:'Failed to add leave!!'});
+        console.log('Error request type', error);
       }
-    );
+    )
   }
 
-  showSuccess() {
-    this.messageService.add({severity:'success', summary:'Success', detail:'Action completed!'});
+  loadRequestStatus(): void {
+    this.leaveService.getRequestStatus().subscribe(
+      (statuses: RequestStatus[]) => {
+        this.requestStatus = statuses;
+        console.log('Request Status:', this.requestStatus);
+      },
+      (error) => {
+        console.log('Error request status', error)
+      }
+    )
   }
 
+  loadRequestPartials(): void {
+    this.leaveService.getRequestPartials().subscribe(
+      (partials: RequestPartial[]) => {
+        this.requestPartial = partials;
+        console.log('Request Partial:', this.requestPartial);
+      },
+      (error) => {
+        console.log('Error request partial', error)
+      }
+    )
+  }
+
+  loadRequestReason(): void {
+    this.leaveService.getRequestReasons().subscribe(
+      (reasons: RequestReason[]) => {
+        this.requestReason = reasons;
+        console.log('Request Reason:', this.requestReason);
+      },
+      (error) => {
+        console.log('Error request reason', error)
+      }
+    )
+  }
+
+  loadApprover(): void {
+    this.leaveService.getRequestApprovers().subscribe(
+      (approvers: RequestApprovers[]) => {
+        this.requestApprover = approvers;
+        console.log('Request Approver:', this.requestApprover);
+      },
+      (error) => {
+        console.log('Error request approver', error)
+      }
+    )
+  }
+
+  loadSuppervisor(): void {
+    this.leaveService.getRequestSuppervisors().subscribe(
+      (suppervisors: RequestSuppervisors[]) => {
+        this.requestSuppervisor = suppervisors;
+        console.log('Request Suppervisor:', this.requestSuppervisor);
+      },
+      (error) => {
+        console.log('Error request suppervisor', error)
+      }
+    )
+  }
+
+  loadInformTo(): void {
+    this.leaveService.getRequestInformTo().subscribe(
+      (informTo: RequestInformTo[]) => {
+        this.requestInformTo = informTo;
+        console.log('Request Inform To:', this.requestInformTo);
+      },
+      (error) => {
+        console.log('Error request inform to', error)
+      }
+    )
+  }
+
+  showPopup(): void {
+    this.displayPopup = true; // Mở popup
+    console.log('Popup state:', this.displayPopup);
+  }
+  loadRequestBalances(): void {
+    this.leaveService.getRequestTimeAndBalanace().subscribe(
+      (balances: RequestTimeAndBalance[]) => {
+        this.requestBalances = balances;
+        console.log('Request Status:', this.requestBalances);
+      },
+      (error) => {
+        console.log('Error request status', error)
+      }
+    )
+  }
 }
