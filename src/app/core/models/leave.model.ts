@@ -1,9 +1,8 @@
 export interface LeaveCard {
-  type_id: string;
-  type_name: string;
-  total: number;
-  icon: string;
-  display_order: number;
+  cardId: string;
+  cardName: string;
+  cardIcon: string;
+  displayOrder: number;
 }
 export interface LeaveCardItems {
   total_count: number;

@@ -60,15 +60,15 @@ export class ListLeaveComponent implements OnInit {
   }
 
   loadLeaveCards(): void {
-    this.leaveService.getLeaveCards().subscribe(
+    this.leaveService.getLeaveDashboardCards().subscribe(
       (cards: LeaveCard[]) => {
         this.leaveCards = cards;
         console.log('Leave Cards:', this.leaveCards);
 
-        const defaultCard = this.leaveCards.find(card => card.display_order === 1);
+        const defaultCard = this.leaveCards.find(card => card.displayOrder === 1);
         if (defaultCard) {
-          this.selectedCardId = defaultCard.type_id;
-          this.loadCardItems(defaultCard.type_id);
+          this.selectedCardId = defaultCard.cardId;
+          this.loadCardItems(defaultCard.cardName);
         }
       },
       (error) => {
