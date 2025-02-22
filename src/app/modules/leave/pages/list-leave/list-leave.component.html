@@ -11,21 +11,16 @@
 
                     <div class="grid md:grid-cols-4 md:gap-6">
                         <div class="w-72 h-24 p-4 border rounded-lg shadow-sm bg-gray-50 flex items-center"
-                            *ngFor="let card of leaveCards" (click)="loadCardItems(card.type_id)">
+                            *ngFor="let card of leaveCards" (click)="loadCardItems(card.cardId)">
                             <div class="space-y-2 w-full">
-                                <div class="text-4xl font-bold text-gray-800">{{ card.total }}</div>
+                                <div class="text-4xl font-bold text-gray-800">card.total</div>
                                 <div class="flex justify-start text-xs text-gray-500 truncate">
-                                    {{ card.type_name || 'No type name available' }}
+                                    {{ card.cardName || 'No type name available' }}
                                 </div>
                             </div>
                             <div class="flex justify-end w-full">
-                                <div
-                                    class="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
+                                <div class="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
+                                    <img [src]="card.cardIcon" alt="Icon" class="h-6 w-6 object-contain">
                                 </div>
                             </div>
                         </div>

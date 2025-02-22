@@ -61,6 +61,9 @@ export class LeaveApiServiceService {
   
     return this.http.get<any[]>(this.leaveApiUrl + 'SearchLeaves', { params });
   }
+  getLeaveDashboardCards(): Observable<any[]> {
+    return this.http.get<any[]>(this.leaveApiUrl + 'GetLeaveDashboardCards');
+  }
   getLeaveCards(): Observable<any[]> {
     return this.http.get<any[]>(this.leaveApiUrl + 'v1/dashboard/cards');
   }
